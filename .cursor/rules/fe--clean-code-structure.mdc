@@ -1,0 +1,200 @@
+---
+description: Clean code rules for frontend — readability, boundaries, duplication control, error handling, and maintainable TypeScript/React code. Invoke during any FE change.
+globs: "client/src/**/*.{ts,tsx,js,jsx}"
+alwaysApply: false
+---
+
+## Frontend Clean Code Rule (scope: clean code only)
+
+This rule focuses only on **clean code**: readability, maintainability, clear boundaries, and predictable behavior.
+It does **not** define visual design or UX decisions (see `fe--frontend-design.mdc` and `fe--uiux-accessibility-frontend.mdc`).
+
+### Priority order
+
+1. Correctness and safety
+2. Readability and clarity
+3. Maintainability (low coupling, high cohesion)
+4. Performance (optimize after measuring; avoid premature micro-optimizations)
+
+## Before writing code (micro-plan)
+
+For non-trivial changes, write a 3–6 line plan:
+- What behavior changes?
+- What files/modules are touched?
+- What are the edge cases (loading/empty/error/permissions)? Keep this as brief notes only; detailed UX requirements belong to `fe--uiux-accessibility-frontend.mdc`.
+- What is the simplest implementation that stays consistent with existing patterns?
+
+## Structure and boundaries (avoid spaghetti)
+
+Follow the folder/module boundaries:
+- Feature boundaries and public APIs → `fe--frontend-structure.mdc`
+- Component-level rules → `fe--component-frontend.mdc`
+- Naming conventions → `fe--naming-conventions-frontend.mdc`
+
+Rules:
+- **One responsibility per module**: don’t mix UI + data fetching + formatting + analytics in one file.
+- **Keep dependencies directional**: UI consumes hooks/services; services should not import UI.
+- Prefer **public API imports** for features (avoid deep imports into another feature).
+
+## Readability rules (what makes code “clean” here)
+
+- Prefer **explicit** over clever.
+- Keep functions small and focused; extract when a block becomes hard to scan.
+- Prefer early returns over deep nesting.
+- Avoid boolean soup: replace multiple booleans with a discriminated union when states are mutually exclusive.
+- No magic strings/numbers: extract repeated values into constants.
+
+Example (reduce nesting):
+
+```ts
+// ❌ hard to scan
+if (user) {
+  if (user.role === 'admin') {
+    if (!user.isDisabled) {
+      doThing();
+    }
+  }
+}
+
+// ✅ readable
+if (!user) return;
+if (user.role !== 'admin') return;
+if (user.isDisabled) return;
+doThing();
+```
+
+## Representative examples & patterns (use these defaults)
+
+### Meaningful names (avoid mental mapping)
+
+```ts
+// ❌ Bad
+const yyyymmdstr = new Date().toISOString();
+
+// ✅ Good
+const currentIsoDate = new Date().toISOString();
+```
+
+### Searchable names (avoid magic numbers)
+
+```ts
+// ❌ Bad
+setTimeout(refresh, 60 * 60 * 24 * 1000);
+
+// ✅ Good
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+setTimeout(refresh, MILLISECONDS_PER_DAY);
+```
+
+### Default parameters (avoid `x || default`)
+
+```ts
+// ✅ Good
+export function formatPrice(value: number, currency = 'USD') {
+  return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(value);
+}
+```
+
+### Destructure once (avoid repeated work / repeated regex)
+
+```ts
+// ❌ Bad (repeats work, unclear)
+// saveCityZip(address.match(re)[1], address.match(re)[2]);
+
+// ✅ Good
+const match = address.match(cityZipCodeRegex);
+const city = match?.[1];
+const zipCode = match?.[2];
+if (!city || !zipCode) return;
+saveCityZip(city, zipCode);
+```
+
+### Locale-safe formatting (do not hand-roll date/number strings)
+
+```ts
+const dateLabel = new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+const amountLabel = new Intl.NumberFormat(locale, { style: 'currency', currency: 'VND' }).format(amount);
+```
+
+### Avoid flag parameters (split functions)
+
+```ts
+// ❌ Bad
+// function createFile(name: string, isTemp: boolean) { ... }
+
+// ✅ Good
+function createFile(name: string) {}
+function createTempFile(name: string) {}
+```
+
+### Prefer pure transforms (avoid hidden side effects)
+
+```ts
+// ✅ Good: return new array instead of mutating input
+function addItem<T>(items: T[], item: T) {
+  return [...items, item];
+}
+```
+
+### Duplicate once → extract on second occurrence
+
+```ts
+// ✅ Extract shared logic after it appears twice
+function isAdmin(user: { role: string } | null) {
+  return user?.role === 'admin';
+}
+```
+
+## Types and data shapes (TypeScript discipline)
+
+- Do not use `any`. Use `unknown` and narrow with type guards when needed.
+- Prefer narrow types close to usage (UI types for UI; API types for API).
+- Avoid “mega types” that represent multiple states; use:
+  - optional fields only when truly optional
+  - discriminated unions for stateful shapes
+
+## State, effects, and derived values (clean logic)
+
+General rule: **derive instead of syncing**.
+- Do not store derived values in state.
+- Do not use `useEffect` to keep UI state in sync with other state.
+- Prefer a single source of truth (URL params / store / query cache) and derive during render.
+
+If a screen needs multiple interacting states, extract:
+- a custom hook
+- or a state machine-like reducer
+instead of scattered `useState`.
+
+## Error handling and user-visible failure
+
+- Prefer predictable failure modes: error state UI, retry affordance, and safe fallbacks.
+- Never swallow errors silently; handle or surface them.
+- For async actions:
+  - disable double-submits
+  - show loading state
+  - preserve user input on failure
+
+## Consistency and duplication control
+
+- Copy/paste is allowed once. The second time means **extract**.
+- If repeated Tailwind class clusters appear, extract variants/utilities or a reusable component.
+- Prefer consistent naming and file patterns (see naming rule).
+
+## Comments (only when they add value)
+
+- Don’t narrate obvious code.
+- Use comments only for:
+  - non-obvious intent/trade-offs
+  - constraints (why this can’t be simpler)
+  - tricky edge cases
+
+## Review checklist (clean code gates)
+
+Before finishing a FE change, confirm:
+- **Scope**: change is minimal and matches requested behavior (no scope creep).
+- **Boundaries**: code lives in the correct module/folder; no cross-feature deep imports.
+- **Readability**: no deep nesting; names are clear; no magic constants.
+- **Types**: no `any`; data shapes are narrow and intentional.
+- **State/effects**: derived values aren’t stored; no “sync effect” patterns.
+- **Errors**: loading/empty/error paths are defined where relevant.
+- **Duplication**: repeated patterns are extracted after the second occurrence.

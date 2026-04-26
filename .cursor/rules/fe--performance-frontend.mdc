@@ -1,0 +1,129 @@
+---
+description: Frontend performance rule — optimize Core Web Vitals (LCP, INP, CLS), reduce bundle/JS cost, optimize images, and enforce performance budgets using Lighthouse/PSI/DevTools.
+globs: "client/src/**/*.{ts,tsx,js,jsx,css,scss,html}"
+alwaysApply: false
+---
+
+## Frontend Performance Rule (performance-only)
+
+This rule focuses only on **performance**: measuring correctly, improving Core Web Vitals, reducing JS/bundle cost, and enforcing budgets.
+It does not redefine component conventions or UX design (see `fe--component-frontend.mdc`, `fe--uiux-accessibility-frontend.mdc`, and `fe--frontend-design.mdc`).
+
+### Primary targets (Core Web Vitals)
+
+Use the **75th percentile** (field data) for pass/fail, segmented by **mobile** and **desktop**:
+- **LCP** (loading): good ≤ **2.5s**
+- **INP** (interactivity): good ≤ **200ms**
+- **CLS** (visual stability): good ≤ **0.1**
+
+Source: web.dev Core Web Vitals guidance.
+
+## Measure first (no blind optimization)
+
+Always establish where the problem is coming from:
+- **Field data** (real users): Web Vitals / CrUX / analytics
+- **Lab data** (repro/debug): Lighthouse, PageSpeed Insights (PSI), Chrome DevTools Performance
+
+Rule: Fix **field** regressions first. Use **lab** to reproduce and validate improvements.
+
+### Tooling checklist (what to use when)
+
+- **Lighthouse (DevTools)**: quick audit, identify main offenders.
+- **PageSpeed Insights**: combines Lighthouse (lab) + field signals (when available).
+- **Chrome DevTools Performance**: deep dive into scripting/layout/paint and INP-like interaction delays.
+- **web.dev/measure**: quick checks and guidance.
+
+## Optimization playbook (high impact)
+
+### 1) Reduce JS cost (bundle size + main-thread time)
+
+- Prefer code-splitting by route and by heavy feature blocks.
+- Lazy-load non-critical UI (below-the-fold, modals, rich editors, charts).
+- Avoid shipping large libraries for small tasks; prefer lighter alternatives already in the approved stack.
+- Minimize expensive client-side hydration work; keep initial render light.
+- Avoid long tasks: break heavy computation, defer work, virtualize large lists.
+
+### 2) Code splitting & lazy loading (React)
+
+- Split at route boundaries first.
+- For optional panels/dialogs: lazy load the component and its dependencies.
+- Avoid lazy-loading above-the-fold critical UI that would delay LCP.
+
+### 3) Images (often the #1 LCP lever)
+
+- Serve modern formats where possible: **AVIF** / **WebP**.
+- Provide **responsive** sources (`srcset/sizes`) to avoid over-downloading.
+- Lazy-load below-the-fold images.
+- Ensure the LCP image is:
+  - appropriately sized
+  - not blocked by JS
+  - preloaded when necessary
+
+### 4) Improve INP (interaction responsiveness)
+
+INP is mainly about **main-thread contention**:
+- Reduce heavy event handlers; keep interaction handlers minimal.
+- Defer non-urgent updates; batch state updates; avoid unnecessary re-renders.
+- Avoid effect-driven “sync loops” that cause extra renders during interaction.
+- Use virtualization for large lists/tables.
+
+### 5) Improve CLS (layout stability)
+
+- Reserve space for images/media (width/height/aspect-ratio).
+- Avoid inserting content above existing content without reserved space.
+- Be careful with late-loading fonts and UI that changes size after load.
+- Avoid layout thrash on hover/expand; use transforms where appropriate.
+
+## Performance budgets (must)
+
+Define and enforce budgets so performance doesn’t regress:
+- Bundle budgets (per route / entry)
+- Image weight budgets (hero/LCP asset)
+- Lighthouse budgets (score + key audits)
+
+### CI enforcement (Lighthouse CI)
+
+Use Lighthouse CI assertions/budgets:
+- Configure a `budgetsFile` and/or assertions to fail builds on regressions.
+- Prefer `lighthouse:recommended` preset, then override where justified.
+
+Example (budgets file in LHCI):
+
+```jsonc
+{
+  "ci": {
+    "assert": {
+      "budgetsFile": "./budgets.json"
+    }
+  }
+}
+```
+
+## Field measurement (optional but recommended)
+
+If you need to diagnose real-user issues, instrument Web Vitals and send to analytics:
+
+```ts
+import { onCLS, onINP, onLCP } from 'web-vitals';
+
+function sendToAnalytics(metric: { name: string; value: number; id: string }) {
+  const body = JSON.stringify(metric);
+  (navigator.sendBeacon && navigator.sendBeacon('/analytics', body)) ||
+    fetch('/analytics', { body, method: 'POST', keepalive: true });
+}
+
+onCLS(sendToAnalytics);
+onINP(sendToAnalytics);
+onLCP(sendToAnalytics);
+```
+
+## Performance review checklist
+
+Before shipping performance-sensitive changes, confirm:
+- **Measurement**: you have baseline metrics (field if available, lab always).
+- **CWV targets**: LCP/INP/CLS are not regressing at the 75th percentile.
+- **JS cost**: no unnecessary dependency growth; code-splitting used where appropriate.
+- **Images**: responsive formats/sizes; lazy-load below fold; LCP image handled intentionally.
+- **INP**: no long tasks on interaction paths; heavy lists are virtualized if needed.
+- **CLS**: no unexpected shifts; space reserved for media; stable layout on load.
+- **Budgets**: Lighthouse/LHCI budgets are updated and enforced (no silent regressions).

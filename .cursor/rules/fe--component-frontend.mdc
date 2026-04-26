@@ -1,0 +1,217 @@
+---
+description: Component-only rules for React (TSX) — API design, composition, state boundaries, accessibility, Tailwind styling, and Testing Library tests.
+globs: "client/src/**/*.{tsx,jsx}"
+alwaysApply: false
+---
+
+## Frontend Components Rule (Component-only)
+
+This rule applies **only** to building or editing **React components**. It does not define app structure, routing, state management architecture, or API conventions (handled by other rules).
+
+### Priorities
+
+1. Correct behavior and clear API
+2. Accessibility and usability inside the component
+3. Maintainability and composition
+4. Performance (avoid unnecessary re-renders/effects)
+5. Visual polish
+
+## Component API design (props)
+
+- **Props type placement**: declare the props type/interface directly below imports.
+- **Props naming**: `ComponentNameProps`.
+- **No `any`** in props/state/helpers. If unknown, use `unknown` and add type guards later.
+- **Design for composition**: prefer `children` for layout containers and wrappers.
+- **Keep props minimal**: avoid “prop soup”; group config into objects only when it reduces complexity.
+- **Controlled vs uncontrolled**:
+  - Prefer **controlled** components when parent must own state (forms, toggles, filters).
+  - Uncontrolled is acceptable for simple local UI, but must still expose hooks/callbacks as needed.
+- **Do not duplicate derived state**: compute from props/state during render instead of storing redundant state.
+- **Event props**: use `onXxx` naming; keep payloads stable and intentional.
+- **Boolean prop names**: use `isXxx`, `hasXxx`, `canXxx` (e.g., `isActive`, `hasError`).
+- Avoid catch-all configs like `config: any`; split into explicit, meaningful props.
+
+React guidance (current best practice): prefer lifting state up and avoid unnecessary Effects for derived values.
+
+## Imports (ordering)
+
+Order imports like this, with a blank line between groups:
+1. React & core libs (`react`, router, etc.)
+2. Third-party libraries
+3. Internal alias imports (`@/...`)
+4. Relative imports (`./...`, `../...`)
+
+## Composition patterns
+
+- Prefer **small primitives** (Button, Input) + **composed blocks** (Card, Section) over large monolith components.
+- Prefer:
+  - `children` composition
+  - prop-driven variants
+  - render props only when necessary
+- Avoid deep prop drilling by design; if it becomes hard, reconsider boundaries (feature/state rules elsewhere).
+
+## State & effects (inside a component)
+
+- Keep components **as pure as possible**.
+- Use Effects for **synchronizing with external systems** (timers, subscriptions, imperative APIs), not for derived UI data.
+- Avoid setting state in an Effect when the value can be computed during render.
+- **Minimize hooks**: avoid adding `useState`/`useEffect` by default. Prefer:
+  - derive values during render
+  - lift state up
+  - keep a single source of truth (URL/store) for complex screens
+  - delegate async state to a data library (e.g. TanStack Query) instead of manual Effects
+
+Example (avoid redundant state):
+
+```tsx
+// ❌ Avoid redundant state + effect
+// const [fullName, setFullName] = useState('');
+// useEffect(() => setFullName(firstName + ' ' + lastName), [firstName, lastName]);
+
+// ✅ Compute during render
+const fullName = `${firstName} ${lastName}`;
+```
+
+## High-performance filtering (React Router + Vite)
+
+When building filter/search/list screens, avoid many local states and sync Effects.
+
+Preferred approach (best performance + UX):
+- **URL search params** are the single source of truth for filters/sort/page.
+- Use a data cache layer (e.g. **TanStack Query**) keyed by filters; do not `refetch` via Effects.
+- For text search UX, allow **one local draft state** + **debounced URL update** to avoid spamming router updates and network requests.
+
+Rules:
+- Do not store `filteredItems` in state; derive with `useMemo` (client-side) or fetch filtered data (server-side).
+- Do not use `useEffect(() => setStateFromParams(...), [params])` patterns; parse params and derive during render.
+- Use `{ replace: true }` when updating search params rapidly (e.g. typing) to avoid polluting history.
+
+## Accessibility inside components (non-negotiable)
+
+- Use semantic elements: `button`, `a`, `label`, `input`, `nav`, etc.
+- **Every interactive element** must:
+  - be keyboard reachable
+  - have a visible focus style
+  - have an accessible name (text, `aria-label`, or label association)
+- **Forms**:
+  - labels are required
+  - error text must be associated (e.g. `aria-describedby`)
+  - use `aria-invalid` when applicable
+- Don’t rely on color alone for meaning.
+- Respect `prefers-reduced-motion` if the component animates.
+
+## Styling & variants (Tailwind)
+
+- Prefer Tailwind utilities; keep className readable.
+- Use a `cn()` helper for class composition (avoid manual string concatenation).
+- Tailwind class order (rough): layout → spacing → border → background → text → state (hover/focus) → responsive.
+- Variants:
+  - Prefer consistent variant names (`variant`, `size`, `tone`) and stable defaults.
+  - If you use CSS variables for dynamic color, set variables in `style` and reference in utilities (e.g. `bg-(--bg-color)`).
+
+## Component structure (recommended)
+
+```tsx
+import type { FC, ReactNode } from 'react';
+import { cn } from '@/lib/utils';
+
+type CardProps = {
+  title?: string;
+  children: ReactNode;
+  className?: string;
+};
+
+export const Card: FC<CardProps> = ({ title, children, className }) => {
+  return (
+    <section className={cn('rounded-xl border bg-background p-4', className)}>
+      {title ? <h2 className="mb-3 text-sm font-semibold">{title}</h2> : null}
+      {children}
+    </section>
+  );
+};
+```
+
+## Component declaration & file layout (internal consistency)
+
+- Prefer **named exports** for components (no default export), except when a framework forces it.
+- Prefer **arrow function + `React.FC`** for components if that’s your repo convention:
+
+```tsx
+export const ComponentName: React.FC<ComponentNameProps> = (props) => {
+  // ...
+};
+```
+
+Inside the component body, keep a consistent order:
+1. Hooks (`useState`, `useEffect`, etc.) at the top
+2. Derived/memoized values below hooks
+3. Event handlers (`handleXxx`) right before `return`
+4. JSX `return`
+
+If JSX grows beyond ~50–70 lines or becomes deeply nested, extract sub-components or render helpers.
+
+## File size limit (keep components maintainable)
+
+- A component file should be **≤ 250 lines**.
+- If it exceeds 250 lines, refactor by extracting:
+  - sub-components (presentational parts)
+  - render helpers (small pure functions)
+  - hooks (logic/stateful parts)
+  - reusable helpers into `utils/` / `lib/`
+
+## Local helpers
+
+- Small helpers used only in the file go **below** the component.
+- Reusable helpers belong in `utils/` / `lib/` (not inside the component file).
+
+## Testing (Testing Library)
+
+Test component behavior like a user:
+- Prefer queries by **role/label/text** (`getByRole`, `getByLabelText`).
+- Use `userEvent` for interactions.
+- Avoid testing implementation details (internal state, private classnames) unless unavoidable.
+- `data-testid` is an escape hatch.
+
+Example:
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+test('submits when enabled', async () => {
+  render(<button type="button">Submit</button>);
+  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+});
+```
+
+## Component checklist (before calling it done)
+
+- **Imports**: grouped and ordered (React/core → third-party → `@/` → relative).
+- **API**: props are minimal, defaults are clear, events are intentional.
+- **Composition**: uses `children`/variants rather than ad-hoc flags.
+- **A11y**: semantic elements, keyboard support, visible focus, accessible names, form labels/errors.
+- **No redundant state**: derived values computed during render, not via Effects.
+- **Hooks discipline**: minimal `useState`/`useEffect`; no Effect used to keep derived UI state in sync.
+- **Styling**: Tailwind classes are readable; variants are consistent; no magic one-off styling.
+- **Size**: component file is **≤ 250 lines** (otherwise extract pieces).
+- **Tests** (when applicable): tests use role/label queries and user-event; avoid implementation-detail assertions.
+
+## Testing & stories (if present)
+
+When creating a new shared component under `src/components`, prefer adding:
+- `ComponentName.test.tsx` (behavioral test)
+- `ComponentName.stories.tsx` (Storybook), if the project uses Storybook
+
+## Next.js note (server vs client components)
+
+If you are in a Next.js App Router project:
+- Default to **Server Components** (no `'use client'`) unless the component needs client-only features.
+- Add `'use client';` only when needed (hooks like `useState/useEffect`, event handlers, browser APIs).
+
+## Keep data fetching out of generic UI components
+
+- Generic UI components (especially under `src/components/ui/`) should not fetch data.
+- Fetch in:
+  - feature/services + feature hooks, or
+  - page/view components
+Then pass data in via props.

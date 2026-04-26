@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: transport-sv-postgres
+    environment:
+      POSTGRES_DB: transport_sv
+      POSTGRES_USER: transport_sv
+      POSTGRES_PASSWORD: transport_sv_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U transport_sv -d transport_sv"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: transport-sv-backend
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      DATABASE_URL: "postgresql://transport_sv:transport_sv_password@postgres:5432/transport_sv"
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+

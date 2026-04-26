@@ -1,0 +1,106 @@
+---
+description: Node.js backend folder architecture for Express services — routes/controllers/services/models/middlewares/validators/tests with a clear request flow and separation of concerns.
+globs: "server/**/*.{ts,js}"
+alwaysApply: false
+---
+
+## Node.js Backend Structure (Express)
+
+Use this rule when creating or modifying a Node.js backend in `server/`.
+Goal: a predictable structure with strong separation of concerns and a consistent request lifecycle.
+
+## Directory structure (required)
+
+- `config/` — database configuration, environment variables, global constants, app configuration
+- `routes/` — define endpoints and attach controllers to HTTP methods
+- `controllers/` — request/response boundary: parse input, call services, return responses (no business logic)
+- `services/` — business logic; orchestrates models and external API calls
+- `models/` — database schema/models and DB queries (Mongoose/Sequelize/etc.)
+- `middlewares/` — auth, centralized error handler, rate limiting, logging, request context
+- `validators/` — validate and normalize input before controllers (Zod or Joi)
+- `utils/` — shared helpers, logger, constants (no app-specific business logic)
+- `tests/` — unit tests (services/utils) and integration tests (routes)
+- `app.js` / `app.ts` — create Express app, attach middleware, mount routes
+- `server.js` / `server.ts` — connect to DB, start listening on port, boot the app
+
+## Request lifecycle (must follow)
+
+```
+Request → Route → Middleware → Controller → Service → Model → DB
+                                    ↑
+                               Validator
+```
+
+Rules:
+- Validators run **before** controller logic for any user input.
+- Middleware order matters in Express: the stack runs in the order registered.
+- 404 handler is last non-error middleware; error handler must be last and have the 4-arg signature `(err, req, res, next)`.
+
+## Layer responsibilities (strict)
+
+### routes/
+- Maps URL + HTTP verb to controller.
+- No business logic.
+
+### controllers/
+- Validate/normalize inputs (or call validators), then call services.
+- Translate service results/errors into HTTP responses.
+- No DB queries.
+- No cross-cutting concerns (auth/logging/rate limiting) — those belong in middleware.
+
+### services/
+- Own business rules and orchestration.
+- Call models and external APIs.
+- Return domain results or typed errors (do not send HTTP responses here).
+
+### models/
+- Own DB schema + query primitives.
+- No HTTP knowledge.
+
+### middlewares/
+- Auth, rate limiting, logging, request correlation IDs.
+- Centralized error handling middleware at the end.
+
+### validators/
+- Schema validation + normalization at the boundary.
+- Prefer `safeParse` (Zod) or `validate(..., { abortEarly: false })` (Joi) to return actionable error details.
+
+## Validation rules (Zod or Joi)
+
+- Use **one** primary validator library per service (Zod preferred in TS projects; Joi acceptable).
+- Validation must happen for:
+  - `req.body`
+  - `req.query`
+  - `req.params`
+- Reject unexpected fields where appropriate; normalize data into typed inputs for services.
+
+Zod pattern (safeParse):
+
+```ts
+const result = Schema.safeParse(req.body);
+if (!result.success) {
+  return res.status(400).json({ error: 'VALIDATION_ERROR', issues: result.error.issues });
+}
+```
+
+## Error handling (Express)
+
+- Implement a centralized error middleware **last**:
+  - signature: `(err, req, res, next)`
+- Do not leak stack traces in production responses.
+- Use consistent error response envelopes.
+
+## Testing
+
+- `tests/unit/`: services and utils
+- `tests/integration/`: routes (HTTP-level), including validation + auth + error cases
+
+## Checklist
+
+Before finishing backend work, confirm:
+- **Placement**: new files are in the correct layer folder.
+- **Flow**: request follows Route → Middleware → Validator → Controller → Service → Model → DB.
+- **No business logic in controllers/routes**.
+- **Validation**: body/query/params validated for relevant endpoints.
+- **Error handling**: 404 handler and 4-arg error middleware exist and are ordered correctly.
+- **Tests**: key services have unit tests; key routes have integration tests.

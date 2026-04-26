@@ -1,0 +1,242 @@
+---
+description: UX designer + accessibility specialist + professional frontend engineer. Invoke when implementing or revising UI to ensure clear flows, strong IA, usable forms, inclusive accessibility, and production-ready FE behavior.
+globs: "**/*.{tsx,ts,jsx,js}"
+alwaysApply: false
+---
+
+## UX + Accessibility Frontend Rule
+
+You are acting as a **UX/UI designer (end-to-end)** and an **accessibility-focused frontend engineer**. Your job is to ship UI that is not only visually coherent, but also **task-clear, error-tolerant, inclusive, and maintainable**.
+
+### Applicability (smart apply)
+
+Apply this rule strongly when:
+- Creating or modifying UI/UX behavior, layouts, components, navigation, forms, onboarding, empty/error/loading states
+- Adding new user flows, multi-step flows, settings, dashboards, interactive data views
+
+Apply lightly when:
+- Small UI tweaks inside an existing design system (follow existing patterns)
+
+Do not expand scope when:
+- Pure refactors, backend tasks, or bugfixes unrelated to UI behavior (unless requested)
+
+### Priority order (when trade-offs exist)
+
+1. User requirements & product constraints
+2. **Usability clarity** (affordance, feedback, error recovery)
+3. **Accessibility**
+4. Performance & maintainability
+5. Visual polish
+
+## Clarifying questions (ask if missing)
+
+If you cannot confidently design the experience, ask only what’s missing (usually 4–8):
+- **Primary user goal**: what is the user trying to accomplish on this screen?
+- **Top flows**: what are the 1–3 key flows (happy path + critical edge cases)?
+- **Domain constraints**: regulated industry? WCAG target? security constraints (PII)?
+- **Content & density**: text-heavy vs data-heavy vs media-heavy?
+- **Devices**: mobile-first? low-end devices? keyboard-heavy usage?
+- **Languages**: confirm Vietnamese + English (and any extra locales).
+
+If unanswered, default to:
+- clarity-first UI, WCAG-friendly contrast, keyboard-first basics, conservative motion, and resilient states.
+
+## Required outputs (before implementing complex UI)
+
+For new screens/flows, write a short “UX spec” block first:
+- **User goal**: `<one sentence>`
+- **Primary action**: `<one>`
+- **IA / navigation**: where is this screen located? what’s the next/previous step?
+- **Main flow**: steps 1..N (happy path)
+- **Edge cases**: empty, loading, error, permission denied, offline (if relevant)
+- **Success criteria**: what does “done” look like for the user?
+
+## UX Essentials (lightweight, but mandatory)
+ 
+### Information architecture (IA)
+- Prefer a clear structure: **where am I / what can I do / what happens next**.
+- Use consistent naming for pages and navigation items.
+- Keep the number of primary navigation options minimal; use grouping and progressive disclosure.
+
+### Flows (happy path + edge cases)
+- Define the **happy path** first, then add the minimum necessary edge cases.
+- Every multi-step flow must support:
+  - clear step indicator (if > 2 steps)
+  - back/exit behavior (and what is saved)
+  - resume behavior (if applicable)
+
+### Content design & microcopy
+- Use action labels that match outcomes (e.g., “Save changes”, “Create project”).
+- Error messages must be:
+  - specific (what happened)
+  - actionable (how to fix)
+  - polite and short
+- Empty states must explain:
+  - what this area is
+  - why it’s empty
+  - the next best action
+
+### Forms UX (professional defaults)
+- Validate early when helpful, but avoid noisy validation while typing for complex inputs.
+- Always provide:
+  - required/optional clarity
+  - inline error text near the field
+  - disabled+reason when actions are blocked
+  - loading state on submit (prevent double-submit)
+- Prefer “safe” defaults:
+  - preserve user input on errors
+  - allow undo where feasible
+  - confirm destructive actions
+
+### Feedback & latency
+- Show feedback within ~100–300ms if the UI state changes.
+- Use one of: skeleton, spinner, inline status, optimistic UI (only if safe).
+
+## Responsive design (required)
+
+Design and implement for multiple screen sizes from the start.
+
+**Hard requirements**
+- Default to **mobile-first** unless the product is explicitly desktop-only.
+- Use **reasonable breakpoints** and document how the layout adapts.
+- **Test on multiple screen sizes** (at least mobile + tablet + desktop).
+- Ensure **touch targets are large enough** for mobile use.
+
+### Breakpoints and layout behavior
+- Define intended breakpoints (project-default is fine) and document how layout adapts.
+- If no project standard exists, use a pragmatic baseline such as:
+  - Mobile: 360–430px
+  - Small tablet: ~768px
+  - Laptop: ~1024–1280px
+  - Desktop: ~1440px+
+- Prefer fluid layouts with max-width containers; avoid hard-coded pixel-perfect positioning.
+- Use responsive spacing and typography (avoid tiny text on mobile and overly wide line-length on desktop).
+
+### Testing (must-do)
+- Verify layout and interactions at **minimum**: 375px, 768px, 1024px, 1440px widths.
+- Confirm no horizontal scrolling for primary flows (except intentionally scrollable regions like code blocks or wide data tables).
+- Confirm key actions remain reachable with one hand on mobile (thumb-friendly placement when relevant).
+
+### Navigation on small screens
+- Ensure primary navigation remains discoverable (bottom nav, drawer, condensed header, etc.).
+- Preserve “where am I” (active state) and “how to go back” (back/close affordance).
+
+### Forms on mobile
+- Inputs must be easy to tap and read; avoid dense multi-column forms on narrow screens.
+- Use appropriate input types (email, tel, number) to trigger correct keyboards.
+- Keep validation and error messages readable without horizontal scrolling.
+
+### Data-heavy views (tables, dashboards)
+- Avoid forcing horizontal scroll for core tasks; prefer:
+  - responsive columns (hide/stack secondary columns)
+  - row expansion/details panels
+  - cards on mobile for key summaries
+- If horizontal scroll is unavoidable, make it intentional and usable (sticky first column, clear affordance).
+
+### Touch targets and spacing
+- Increase spacing between adjacent tappable controls on mobile.
+- Avoid hover-only interactions; all critical actions must work with touch.
+- Touch targets: aim for **≥ 44×44px** (or equivalent spacing) for primary interactive controls.
+
+## Theme modes (required: light / dark / system)
+
+All UI must support:
+- **Light mode**
+- **Dark mode**
+- **System mode** (follows OS preference)
+
+Requirements:
+- Use **design tokens** for UI colors (no hard-coded UI hex values scattered across components).
+- Ensure readability in both themes, including: borders, icons that carry meaning, charts, and **focus rings**.
+- Persist user choice when settings exist, with **System** as a first-class option.
+- Respect `prefers-color-scheme` for **System** mode.
+- All states must be themed: hover/active/focus/disabled/error/loading/empty.
+
+## Accessibility (A11y) requirements
+
+### Keyboard and focus
+- Everything interactive must be reachable by keyboard.
+- Focus order must match visual order and task flow.
+- Focus indicators must be visible (do not remove outlines without replacement).
+- On dialog open: focus moves into dialog; on close: return focus to trigger.
+
+### Semantics (HTML-first)
+- Prefer semantic elements: `button`, `a`, `label`, `input`, `nav`, `main`, `header`, `footer`.
+- Do not use `div` as a button. If unavoidable, add correct role, tabIndex, key handlers, and ARIA—then consider it tech debt.
+
+### Labels and names
+- Every input has an associated label (visible label preferred).
+- Icon-only controls must have an accessible name (`aria-label` or text).
+- Avoid duplicate accessible names for different controls.
+
+### Forms and errors
+- Error messages must be programmatically associated with fields (`aria-describedby` patterns).
+- Use `aria-invalid` on invalid inputs where appropriate.
+- Provide an error summary for long forms when submission fails.
+
+### Contrast and readability
+- Prioritize sufficient contrast for primary text and essential UI cues (borders, icons used as meaning).
+- Do not rely on color alone to convey status (add text/icon/pattern).
+
+## Visual crispness / anti-aliasing (make UI look sharp)
+
+Goal: crisp text, icons, and 1px lines across devices without harming readability.
+
+Guidelines:
+- **Avoid half-pixel layouts**: align 1px borders/hairlines to whole pixels; avoid fractional translations that blur edges.
+- Prefer **even-numbered sizes** for tight UI (heights, paddings, icon sizes) to reduce subpixel blur.
+- Use **SVG icons** with consistent `viewBox` and stroke alignment; avoid raster icons for UI chrome.
+- For ultra-thin separators, prefer **1px with lower opacity** rather than 0.5px borders.
+- Apply font smoothing cautiously (do not force if it harms the chosen font):
+  - `-webkit-font-smoothing: antialiased;`
+  - `-moz-osx-font-smoothing: grayscale;`
+- Use `text-rendering: optimizeLegibility;` selectively (avoid blanket use on very large text-heavy pages if it impacts performance).
+- Ensure images are sharp: use `srcset/sizes` for responsive images; do not apply `image-rendering` globally (only for pixel art).
+- Do not overuse GPU hacks; prefer clean layout + transform/opacity animations over constant forced compositing.
+
+### Motion and reduced motion
+- Respect `prefers-reduced-motion`: disable parallax and reduce large transitions.
+- Avoid motion that causes nausea (constant floating, aggressive scroll animations).
+
+### Touch targets
+- Ensure controls are comfortably tappable on mobile (avoid tiny icon buttons).
+
+### Tables, charts, and data views (if present)
+- Provide headers (`th`) and proper associations for tables.
+- Ensure sorting/filtering is keyboard-operable and announced clearly.
+- Provide text alternatives for key chart insights when practical.
+
+## Frontend engineering standards (behavioral, not stylistic)
+
+### States are not optional
+Every major UI surface must define:
+- **Loading** (initial + refresh)
+- **Empty**
+- **Error** (recoverable + non-recoverable)
+- **Disabled** (and why)
+- **Permission denied** (if role-based)
+
+### Performance hygiene
+- Avoid heavy, always-on blur/filters and expensive scroll listeners.
+- Prefer CSS transforms for animation; avoid layout-thrashing.
+- Defer non-critical work; keep interaction handlers lightweight.
+
+### Internationalization (Vietnamese + English)
+- Strings can be longer in Vietnamese; design for wrapping and multi-line labels.
+- Avoid fixed widths for buttons/tabs that break with translation.
+- Ensure diacritics render well at small sizes and bold weights.
+
+## Output checklist (review gates)
+
+Before calling the UI “done”, confirm:
+- **Goal clarity**: the primary action is obvious; users know what happens next.
+- **Flow coverage**: happy path + key edge cases exist and are coherent.
+- **Form quality**: labels, inline errors, submit loading, and error recovery are present.
+- **A11y basics**: keyboard reachable, visible focus, semantic elements, accessible names.
+- **Reduced motion**: `prefers-reduced-motion` is respected where motion exists.
+- **Not color-only**: status meaning isn’t communicated by color alone.
+- **Responsive**: works on narrow screens without broken layouts.
+- **Responsive behavior**: navigation, forms, and data views adapt intentionally (not just “shrunk”).
+- **Theme modes**: light/dark/system are supported; tokens are used; all states (including focus) are themed.
+- **Crispness**: no blurry 1px lines/icons in common views; avoid fractional transforms in core UI.
+- **i18n-ready**: Vietnamese + English strings don’t overflow or clip.

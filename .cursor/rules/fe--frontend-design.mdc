@@ -1,0 +1,298 @@
+---
+description: Creative director for initial webapp visual direction. Invoke when shaping a new UI or major redesign to decide style, palette, typography (Vietnamese + English safe), and motion, then translate them into consistent design tokens.
+alwaysApply: false
+---
+
+## Design Thinking
+
+Before coding, understand the context and commit to a BOLD aesthetic direction:
+- **Purpose**: What problem does this interface solve? Who uses it?
+- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
+- **Constraints**: Technical requirements (framework, performance, accessibility).
+- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+
+**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+
+Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
+- Production-grade and functional
+- Visually striking and memorable
+- Cohesive with a clear aesthetic point-of-view
+- Meticulously refined in every detail
+
+## Applicability and priority (how strongly to apply)
+
+Apply this rule with different intensity depending on the task:
+- **Strongly apply**: new webapp, new major UI surface, redesign, building theme/tokens, baseline layout/components.
+- **Lightly apply**: feature work inside an established design system; preserve the existing direction and extend tokens.
+- **Do not apply**: bugfix-only tasks, refactors, backend-only tasks, performance/hotfix work without UI changes.
+
+If multiple rules conflict, prioritize in this order:
+1. **User requirements** and product constraints
+2. **Accessibility and readability**
+3. **Performance and maintainability**
+4. This aesthetic rule (style/motion/visual flair)
+
+## Clarifying questions (ask before committing direction)
+
+If you cannot confidently lock **Purpose / Tone / Constraints / Differentiation** (or you cannot choose Style/Palette/Motion/Fonts), you **must ask clarifying questions** before building the UI. Keep it short and decision-oriented.
+
+Ask only what’s missing, usually 4–8 questions:
+- **Product type**: What kind of webapp is it (SaaS dashboard, landing, ecommerce, internal tool, portfolio, etc.)?
+- **Primary users**: Who uses it, and what’s their environment (office, mobile-first, low-end devices)?
+- **Brand constraints**: Any existing brand colors, logo, typography, design system, or “must avoid” styles?
+- **Theme**: Prefer light/dark/both? High-contrast requirement?
+- **Motion**: Minimal/subtle/theatrical? Any motion sensitivity concerns?
+- **Accessibility**: Target level (e.g. WCAG AA), regulated domain (fintech/health/gov)?
+- **Content density**: Data-heavy tables/forms vs storytelling/marketing?
+- **Languages**: Confirm Vietnamese + English (and any extra languages).
+
+If the user does not answer, proceed with conservative, production-safe defaults:
+- `MO-SUBTLE`, strong readability, bilingual-safe typography (Vietnamese + English), and a neutral+accent palette.
+
+## When this rule should drive decisions (Scope)
+
+This rule is a **creative director** for the **initial product shaping phase**. Apply strongly when:
+- Starting a new webapp / new major UI surface
+- Establishing the global theme, layout system, tokens, and baseline component styles
+- Building marketing/landing surfaces or a major redesign
+
+Apply lightly when:
+- Adding small features inside an already-established design system
+
+Do not let this rule increase scope when:
+- Doing bugfixes, refactors, performance fixes, or non-UI work (unless explicitly asked)
+
+## Decision pipeline (must-do before implementation)
+
+Before writing UI code, explicitly decide and state these outputs:
+- **Style direction**: pick 1 primary style (from the table below, or a better fit if justified)
+- **Color direction**: pick 1 palette direction (from the table below, or a better fit if justified)
+- **Motion profile**: pick 1 of `MO-UTILITY`, `MO-SUBTLE`, `MO-THEATRICAL`
+- **Typography pack**: pick `Display` + `Body` (+ optional `Mono`) with **Vietnamese + English support**
+
+Then translate these decisions into **tokens** (CSS variables / theme tokens) and use them consistently:
+- Color tokens: `--bg`, `--surface`, `--text`, `--muted`, `--primary`, `--accent`, `--border`, `--shadow`
+- Typography tokens: `--font-display`, `--font-body`, `--font-mono`, base size, scale, `line-height`
+- Motion tokens: durations, easing, stagger rules, hover/press rules
+
+**Flexibility**: The tables are **reference catalogs**, not hard constraints. If a non-listed direction is clearly better for the context, choose it and briefly justify why.
+
+## Required deliverables (write down before coding UI)
+
+Before implementing screens/components, explicitly document:
+- **Chosen direction**: style + palette + motion profile + typography pack
+- **Token set**: colors, typography, spacing, radius, borders, shadows, motion
+- **Interaction states**: hover, active, focus, disabled, error, loading, empty
+- **Responsive plan**: breakpoints and layout behavior
+
+This prevents drift and ensures the UI can scale beyond a single page.
+
+## Output format (must be printed before coding UI)
+
+When this rule applies strongly (new UI / major redesign), output the following block first, then implement:
+
+**Aesthetic Direction**
+- Style: `<one>` (from catalog or justified custom)
+- Palette: `<one>` (from catalog or justified custom)
+- Motion profile: `MO-UTILITY | MO-SUBTLE | MO-THEATRICAL`
+- Theme mode: `light | dark | both`
+
+**Typography (VN+EN safe)**
+- Display font: `<family>` (fallback: `<...>`; VN+EN verified: `yes/no`)
+- Body font: `<family>` (fallback: `<...>`; VN+EN verified: `yes/no`)
+- Mono font (optional): `<family>` (fallback: `<...>`)
+- Base size / scale: `<e.g. 16px, 1.25>`; Line-height: `<e.g. 1.5>`
+
+**Tokens (starter set)**
+- Colors: `--bg`, `--surface-1`, `--surface-2`, `--text`, `--muted`, `--primary`, `--accent`, `--border`, `--shadow`
+- Spacing scale: `<e.g. 4/8/12/16/24/32/48/64>`
+- Radius scale: `<e.g. 8/12/16>`
+- Motion: duration `<...>`; easing `<...>`; stagger `<...>`
+
+**Interaction and states**
+- Buttons: primary/secondary/tertiary rules + focus ring rule
+- Forms: input focus/error/help/disabled
+- Feedback: loading (skeleton/spinner), empty state, toast/alert
+
+**Responsive plan**
+- Breakpoints: `<...>`
+- Layout notes: `<...>`
+
+## Frontend Aesthetics Guidelines
+
+Focus on:
+- **Typography**: Choose fonts that are beautiful, unique, and interesting. Avoid generic defaults (Arial, Roboto, system fonts) and “AI-default” vibes when you have freedom; opt instead for distinctive choices that elevate the frontend's aesthetics. Pair a distinctive display font with a refined body font. If the product already has brand/design-system typography constraints, follow them and express uniqueness through composition, color, and motion instead.
+- **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
+- **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
+- **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
+- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
+
+NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
+
+Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
+
+**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
+
+## Product-quality guardrails (do not violate)
+
+No matter how bold the style is, the UI must remain:
+- **Readable**: comfortable body text sizing, adequate line-height, clear hierarchy.
+- **Accessible**: visible focus states, sufficient contrast for primary text, keyboard navigability.
+- **Performant**: avoid heavy blur/filters everywhere, avoid expensive scroll effects, prefer GPU-friendly transforms.
+- **Maintainable**: effects should be tokenized/systematized; avoid one-off magic values unless justified.
+
+## Layout, spacing, and density (missing essentials)
+
+Define a spacing system early:
+- Spacing scale (example): 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64
+- Radius scale (example): 8 / 12 / 16 (or a style-specific alternative)
+- Border rules: hairline vs bold outlines (match the style)
+- Grid rules: max width, gutters, and section rhythm
+
+Choose a density mode:
+- **Comfortable** for general users and longer sessions
+- **Compact** only when the product is explicitly data-dense (dashboards/admin tools)
+
+## Typography (Vietnamese + English safe)
+
+Fonts must not break Vietnamese diacritics. When choosing `Display` and `Body` fonts:
+- **Must** support **Vietnamese + English** (no missing glyphs/tofu; accents must render cleanly)
+- **Must** define a robust **fallback chain** (end with `Noto Sans` or `system-ui`)
+- Prefer “distinctive” fonts, but **do not sacrifice language coverage** for novelty
+
+Quick verification text (use as a sanity check):
+- Vietnamese: `Tiếng Việt: Đặng Thái Sơn – Trường, thưởng, khoảng, tưởng tượng, hủy, nhuyễn.`
+- English: `The quick brown fox jumps over the lazy dog. 0123456789`
+
+If the chosen display font is stylistic and risks Vietnamese coverage, keep headings/body Vietnamese-safe by:
+- Using the display font only for short Latin headlines, or
+- Falling back to the body font for Vietnamese content
+
+### Font style packs (reference, optional)
+
+If you maintain a font catalog, represent it as “packs” so the agent can pick a coherent set quickly:
+- `FONT-PACK`: `Display` + `Body` (+ optional `Mono`)
+- `Language support`: must be **verified for Vietnamese + English**
+- `Fallback chain`: must be explicit and robust
+- `Best for`: which style directions it complements
+
+If no catalog is provided, prefer Vietnamese-safe families such as:
+- **UI/body sans**: `Be Vietnam Pro`, `Noto Sans`, `Source Sans 3`, `IBM Plex Sans`, `Lexend`
+- **Editorial/display serif**: `Noto Serif`, `Source Serif 4`, `Merriweather`
+- **Mono**: `IBM Plex Mono`, `Noto Sans Mono`
+
+## Color system requirements (missing essentials)
+
+When building palettes, define at least:
+- **Background** and **surface** separation (1–3 elevation levels)
+- **Text**: primary + muted + inverted
+- **Brand**: primary + accent
+- **Borders** and **shadows**
+- **Semantic colors**: success / warning / error (and their subtle backgrounds)
+
+Ensure the palette still works for:
+- Error states and form validation
+- Data visualization (if any)
+- Dark mode (if supported)
+
+## Motion profiles (choose one)
+
+- **MO-UTILITY**: minimal motion, fast UI, clarity-first. Hover/press only, no scroll theatrics.
+- **MO-SUBTLE**: tasteful transitions, one gentle “hero moment” (load reveal), restrained hover/scroll.
+- **MO-THEATRICAL**: signature sequences (stagger, scroll-trigger sections), but still performance-aware.
+
+Accessibility requirement:
+- Respect `prefers-reduced-motion` (provide a reduced-motion variant for `MO-SUBTLE` and `MO-THEATRICAL`)
+
+## States and components (missing essentials)
+
+Every UI surface should define consistent patterns for:
+- **Buttons/links**: hover/active/focus/disabled; clear primary vs secondary vs tertiary.
+- **Inputs**: focus ring, error state, helper text, disabled, loading.
+- **Feedback**: toasts/alerts, inline validation, empty states, skeleton/loading states.
+- **Navigation**: active state, breadcrumb/tab patterns, mobile fallback.
+
+Avoid “looks good but unclear” interactions: if users cannot tell what’s clickable, the design fails.
+
+## Internationalization and typography safety (Vietnamese + English)
+
+Design must hold up for:
+- Vietnamese diacritics at small sizes and in bold weights
+- Longer Vietnamese strings (wrapping, button labels, table headers)
+- Mixed-language content (EN + VI) without awkward rhythm
+
+## Reference catalog: Style directions
+
+You may select from (or be inspired by) the following. Choose 1 primary style.
+
+| #  | Style                               | Primary feel                                                    | Best used for webapps like…                                             | Avoid when…                                                                                                                                      |
+| -- | ----------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1  | Flat design                         | Simple, modern, friendly.                                        | SaaS, dashboards, education apps, general online services.               | You need a highly distinctive brand; flat can become bland and struggle to differentiate.                                                        |
+| 2  | Material design                     | Standardized, balanced, trustworthy, “Google-ish”.               | Android/Chrome-like apps, internal systems, complex component-heavy UIs. | The brand needs a strong unique personality; copying Material too literally can feel generic.                                                    |
+| 3  | Skeuomorphism                       | Realistic, nostalgic, object-like.                               | Object-simulation apps, retro games, campaign microsites.                | Enterprise/B2B, data-heavy apps; can feel dated, visually noisy, and hard to scale into a design system.                                         |
+| 4  | Neumorphism (Soft UI)               | Soft, calm, slightly futuristic.                                 | Cards, settings panels, small dashboards, personal apps.                 | Strict WCAG/regulatory environments (gov, banking, healthcare): easy to miss contrast and click affordances.                                     |
+| 5  | Glassmorphism                       | High-tech, premium, OS-like.                                     | AI tools, fintech/crypto, high-end landing pages, hero sections.         | Dense dashboards and text-heavy tools; transparency/blur can harm readability and WCAG contrast compliance.                                       |
+| 6  | Brutalism / Neubrutalism            | Bold, rebellious, highly distinctive.                            | Creative studios, portfolios, Gen-Z brands, attention-grabbing campaigns.| Serious/regulated domains (banking/insurance/health/gov, B2B enterprise): harsh layouts/colors can reduce trust and increase fatigue.            |
+| 7  | Minimalism                          | Premium, clean, professional.                                    | Luxury, consulting, B2B SaaS, fintech, health.                           | High-content/complex workflows where over-minimalism removes affordances and confuses users about what’s actionable.                             |
+| 8  | Maximalism                          | Energetic, expressive, “eye candy”.                              | Youth brands, entertainment, games, events, communities.                 | Focus-heavy, data-reading, serious B2B tools; too many textures/colors reduce focus and cause fatigue.                                           |
+| 9  | Retro / Vintage                     | Nostalgic, warm, familiar.                                       | Retro music, vintage fashion, cafes, anniversary campaigns.              | Products that must feel futuristic/cutting-edge (AI infra, enterprise platforms); retro can read as “old” or less technical.                     |
+| 10 | Retro-futurism / Cyberpunk          | Neon, dark, sci‑fi, edgy.                                        | Games, dev/gamer tools, experimental AI/crypto, special campaigns.       | Mass-market audiences, older users, conservative industries; neon/dark can be tiring and harder to read for typical users.                        |
+| 11 | Bauhaus / Swiss / Geometric         | Structured, rational, “intellectual design”.                     | B2B SaaS, data tools, docs, system-oriented brands.                      | Brands needing warmth/emotion/lifestyle softness; over-rigidity can feel cold or distant.                                                        |
+| 12 | Claymorphism / 3D playful           | Cute, toy-like, playful.                                         | Kids apps, playful education, onboarding, youthful B2C brands.           | Finance/insurance/hospitals/legal: toy-like tone can reduce perceived seriousness and safety.                                                     |
+| 13 | Corporate / Enterprise UI           | Serious, safe, utility-first.                                    | ERP/CRM/HRM, banking portals, enterprise dashboards.                     | Youthful B2C, creative, or entertainment brands; can feel boring and reduce appeal.                                                              |
+| 14 | Editorial / Magazine style          | Artistic, storytelling, magazine-like.                            | Long-form content, blogs, case studies, interactive reports.             | Highly interactive/task-heavy apps (forms, tables, long workflows): can over-optimize for aesthetics over task efficiency.                         |
+| 15 | Bento grid UI                       | Modern, modular, scannable.                                      | SaaS landing pages, feature overviews, dashboard summaries.              | Linear multi-step flows (complex checkout, long forms, wizards): too many bento tiles can reduce clear sequencing and guidance.                   |
+| 16 | Dark mode / High-contrast           | Cool, techy, focus-friendly at night.                            | Dev tools, analytics, trading, media, long-session apps.                 | Older/less experienced users or bright-light environments; dark-only can hurt usability if no light mode exists.                                 |
+| 17 | Data-driven / Dashboard UI          | Trustworthy, business-centric, logical.                          | BI, monitoring, admin panels, analytics tools.                           | Marketing/brand storytelling landings; can feel too “dry” to create emotional brand impact.                                                      |
+| 18 | Motion-heavy / Immersive UI         | Lively, emotional, “wow”.                                        | Product tours, campaigns, storytelling sites, events, marketing microsites.| Daily work tools/enterprise apps or motion-sensitive users; heavy motion can hurt performance and accessibility.                               |
+| 19 | Neomorphism / Morphism hybrid depth | Tactile, premium, but subtle.                                    | Widgets, control centers, carefully-crafted card UIs.                    | Large enterprise systems; hard to systematize, a11y-unfriendly, high effort with questionable UX ROI.                                             |
+| 20 | AI-generated / Generative aesthetics| Highly custom, artistic, “AI-first”.                             | AI tools, creative studios, campaigns, short-lived landings.             | Core long-lived product UIs with many users; overly artsy/variable styles can reduce consistency and maintainability.                             |
+
+## Reference catalog: Color / palette directions
+
+You may select from (or be inspired by) the following. Choose 1 primary palette direction.
+
+| #  | Color tone / palette                                | Primary mood                                                          | Best used for webapps like…                                                                                           | Avoid when…                                                                                                     |
+| -- | -------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| 1  | Warm tones (warm reds/oranges/yellows)             | Energy, urgency, warmth, action-oriented.                              | Ecommerce, campaign landings, fitness, social apps; strong CTA needs.                                                 | Healthcare/banking/enterprise that needs calm; long reading flows—over-saturation can fatigue users.           |
+| 2  | Cool tones (cool blues/greens)                     | Calm, trustworthy, professional, safe.                                 | Fintech, banking, B2B SaaS, health, internal dashboards, stability-first tools.                                       | Youth entertainment/gaming brands that need “explosive” energy rather than calm.                               |
+| 3  | Pastel palette                                     | Gentle, soft, friendly, “cute”, light.                                 | Wellness, light social, education, lifestyle; audiences needing softness.                                             | Environments requiring strong contrast (status/alerts) or bright outdoor use; can reduce clarity.              |
+| 4  | Vibrant / saturated                                 | Bold, loud, high energy, immediate attention.                           | Landings, hero sections, games, creative apps, short campaigns.                                                      | Complex dashboards or daily-work apps used for hours; can feel “noisy” and exhausting.                         |
+| 5  | Earthy / organic (browns/olives/clays)             | Natural, grounded, warm, authentic, eco.                                | Sustainability brands, travel, wellness, F&B, handcrafted marketplaces.                                              | Ultra-tech/cutting-edge vibes (AI infra, high-frequency trading).                                              |
+| 6  | Monochrome (one hue, many tints/shades)            | Clean, minimal, focused, systematic.                                    | B2B SaaS, docs, admin UIs, layout/hierarchy-driven products.                                                         | Youthful B2C/creative entertainment; can feel bland without a strong accent.                                   |
+| 7  | Analogous (neighboring hues)                       | Harmonious, smooth, low-conflict.                                       | Long flows, form-heavy apps, reading experiences that should feel gentle.                                            | When you need extremely punchy CTAs; may lack contrast without an out-of-family accent.                        |
+| 8  | Complementary (opposites)                          | High contrast, dynamic, eye-catching.                                   | CTAs, key components, marketing sections, games, creative apps.                                                      | Applying complementary everywhere (bg/text/components) can become harsh and tiring.                             |
+| 9  | Triadic (three evenly spaced hues)                 | Colorful but balanced, playful, energetic.                              | Education, community, creative tools, B2C startups needing color with structure.                                     | Serious enterprise/B2B; too many hues can reduce authority if uncontrolled.                                    |
+| 10 | Neutral + accent (grays/white + 1–2 accents)       | Clean, professional, clear hierarchy, safe.                              | Most SaaS/dashboards/production webapps; “real world” product UIs (60–30–10).                                         | Brands requiring extremely distinctive/art-directed color; can feel “too safe”.                                |
+| 11 | High-contrast (near black/white + accent)          | Crisp, decisive, readable, a11y-friendly.                               | High-WCAG apps, dev tools, BI, text-heavy products.                                                                   | Meditation/wellness relaxation experiences; strong contrast can feel harsh.                                     |
+| 12 | Low-contrast / muted                               | Subtle, lightly premium, non-glary, refined.                             | Luxury brands, artist portfolios, wellness, storytelling landings.                                                   | UIs needing clear state differentiation (errors/warnings) or older users; highlights can be missed.            |
+| 13 | Jewel tones (ruby/emerald/sapphire)                | Rich, premium, saturated but refined.                                   | Luxury ecommerce, premium fintech, high-end agencies.                                                                 | Mass-market friendliness; can feel heavy if overused.                                                          |
+| 14 | Black & white + accent                             | Ultra-minimal, editorial, sharp.                                        | Portfolios, blogs, fashion, design studios, art-forward brands.                                                      | Complex stateful/data tools; limited color can reduce categorization/legibility.                                |
+| 15 | Sepia / vintage                                    | Warm nostalgia, film-like storytelling.                                  | Storytelling sites, vintage brands, photo blogs, artistic personal projects.                                         | Modern tech/AI/fintech products; can read as dated and less sharp.                                             |
+| 16 | Neon / cyber                                       | Futuristic, gaming, underground.                                        | Games, dev/gamer tools, experimental AI/crypto, attention-grabbing events/landings.                                  | Older users or conservative industries (traditional finance/gov/health); can feel harsh and less trustworthy.   |
+| 17 | Soft warm hues (beige/peach/blush)                 | Warm, welcoming, human, safe.                                           | Social, wellness, communities, lifestyle products.                                                                    | Monitoring/trading/alerting where urgency must be obvious; can feel too gentle.                                |
+| 18 | Digital nature (greens/blues + earthy neutrals)    | Calm, eco, balanced, nature-adjacent.                                   | Environmental/agriculture apps, travel, meditation, sustainability dashboards.                                        | Fintech/enterprise needing strong authority/control; can feel too soft.                                        |
+| 19 | Retro-futuristic (pastel + vintage mix)            | Nostalgic + playful + modern; strong for storytelling.                   | Creative tools, community/lifestyle apps, fun campaigns, Gen-Z B2C landings.                                         | Enterprise/gov/banking seriousness; may feel too playful/unprofessional.                                       |
+| 20 | Brand-primary heavy (one dominant brand color)     | High recognition, consistent, “signature”.                              | Strong established brands with clear guidelines; primary-dominant 60–30–10 balancing.                                 | New products or overly intense brand colors; overuse hurts hierarchy/readability and can cause fatigue.         |
+
+## Definition of Done (initial design shaping)
+
+Consider the “initial shaping” complete when:
+- A style + palette + motion profile + typography pack are chosen and documented
+- Tokens are defined and used consistently (no random colors/spacing/animations)
+- Core components have consistent states (hover/active/focus/disabled/error/loading)
+- The design reads well in Vietnamese + English
+- Motion respects `prefers-reduced-motion`
+- The UI remains readable and performant (no blanket heavy blur/filters)
+
+## Checklist (review gates)
+
+Use this as a quick review before calling the UI “ready”:
+- **Direction locked**: exactly 1 style + 1 palette + 1 motion profile chosen (or justified custom).
+- **Tokens first**: colors/type/spacing/radius/motion tokens exist and are used (no one-off magic values unless justified).
+- **Bilingual safety**: Vietnamese diacritics render cleanly; long Vietnamese strings wrap gracefully; mixed EN+VI looks natural.
+- **A11y basics**: keyboard navigation works; focus states are visible; primary text contrast is sufficient; `prefers-reduced-motion` is respected.
+- **States covered**: hover/active/focus/disabled/error/loading/empty exist for core components.
+- **Motion discipline**: one “hero moment” max for `MO-SUBTLE`; avoid constant scroll-jank; keep effects purposeful.
+- **Performance sanity**: avoid blanket heavy blur/filters; prefer transform/opacity for animations; keep decorative layers controlled.
+- **Consistency**: components share the same radii, shadows, borders, and spacing rhythm; no visual drift between screens.

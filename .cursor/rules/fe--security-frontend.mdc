@@ -1,0 +1,106 @@
+---
+description: Frontend security rule — prevent XSS, coordinate CSRF defenses with backend (cookies/tokens), and avoid unsafe UX patterns that enable attacks.
+globs: "client/src/**/*.{ts,tsx,js,jsx,html}"
+alwaysApply: false
+---
+
+## Frontend Security Rule (scope: FE security only)
+
+This rule focuses on **security at the frontend layer**:
+- XSS prevention (React + DOM sinks)
+- CSRF basics and how FE should cooperate with backend cookie/token strategies
+- Safe UX patterns (avoid workflows that enable phishing/auto-submit abuse)
+
+It does not replace:
+- general clean code rules → `fe--clean-code-structure.mdc`
+- component structure rules → `fe--component-frontend.mdc`
+
+## 1) XSS prevention (non-negotiable)
+
+### Hard rules
+
+- Do **not** use `innerHTML` / `dangerouslySetInnerHTML` with **untrusted** data.
+- Treat any HTML coming from:
+  - user input
+  - CMS
+  - query params
+  - third-party APIs
+  as **untrusted** by default.
+
+React reference shows how `dangerouslySetInnerHTML` can trivially create an XSS hole if content is untrusted.
+
+### Safe defaults (preferred)
+
+- Prefer plain text rendering (React JSX escaping) and safe DOM sinks:
+  - use React text nodes
+  - use `textContent` (if manipulating DOM)
+- Prefer structured rendering (e.g., render a list of allowed elements) over raw HTML.
+
+### If you must render rich HTML
+
+Only acceptable when:
+- the source is trusted **or**
+- you sanitize with a proven sanitizer (e.g. DOMPurify) and still keep a strict allowlist mindset.
+
+Example (OWASP guidance):
+
+```ts
+import DOMPurify from 'dompurify';
+
+const safeHtml = DOMPurify.sanitize(dirtyHtml);
+return <div dangerouslySetInnerHTML={{ __html: safeHtml }} />;
+```
+
+### Additional XSS rules
+
+- Never interpolate untrusted data into:
+  - script-like contexts
+  - `style` strings
+  - `href="javascript:..."`
+- For links built from user input, validate protocol (allowlist `https:`/`mailto:` as appropriate).
+
+## 2) CSRF basics (how FE should cooperate)
+
+### Understand the baseline
+
+- CSRF is about **cross-site requests** that carry credentials (usually cookies).
+- FE must assume the backend uses cookie-based auth unless stated otherwise.
+
+### Cookie attributes (backend-owned, FE must not break)
+
+When backend uses cookies, prefer:
+- `HttpOnly` for session cookies (prevents JS access; reduces impact of XSS cookie theft)
+- `Secure` in production (HTTPS-only)
+- `SameSite=Lax` or `SameSite=Strict` where possible to mitigate CSRF
+- If `SameSite=None` is required (cross-site), it must be paired with `Secure`
+
+### FE request behavior (important)
+
+- For state-changing calls (POST/PUT/PATCH/DELETE), backend should require a CSRF defense:
+  - synchronizer token, or
+  - cookie-to-header (double-submit) pattern
+- FE should send CSRF tokens in a header when required (e.g. `X-CSRF-Token`).
+- Do not build “silent” state-changing requests triggered by:
+  - automatic page load
+  - hidden iframes
+  - untrusted deep links
+
+If using a cookie-to-header pattern, FE can add an interceptor that reads a non-HttpOnly CSRF token cookie and forwards it in a header for unsafe methods (OWASP pattern).
+
+## 3) Safe UX patterns (avoid security foot-guns)
+
+- Confirm destructive actions; avoid one-click irreversible operations.
+- Avoid auto-submitting forms from query params without user intent.
+- Treat external links as untrusted:
+  - use clear labeling (“opens external site” when relevant)
+  - consider `rel="noopener noreferrer"` for `target="_blank"`
+- Never display raw error objects or stack traces to end users.
+
+## Security checklist (FE gates)
+
+Before shipping FE changes, confirm:
+- **No unsafe HTML sinks**: no untrusted `innerHTML` / `dangerouslySetInnerHTML`.
+- **Sanitization**: if rich HTML is rendered, it’s sanitized and the source is understood.
+- **Links**: user-provided URLs are validated/allowlisted.
+- **Cookies/CSRF**: FE does not rely on JS-accessible session cookies; state-changing calls use the backend’s CSRF requirements (token/header when applicable).
+- **UX safety**: no auto-submit from untrusted input; destructive actions require confirmation.

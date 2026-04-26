@@ -1,0 +1,128 @@
+---
+description: Frontend i18n + SEO rule — translation keys (no hard-coded UI text), pluralization, locale formatting, and SPA SEO basics (meta/OG/canonical/robots/sitemap/structured data) without conflicting with other FE rules.
+globs: "client/src/**/*.{ts,tsx,js,jsx,html}"
+alwaysApply: false
+---
+
+## i18n + SEO Rule (scope: configuration + folder/file structure + essentials)
+
+This rule focuses on:
+- **i18n**: translation key workflow, pluralization, locale formatting, and where files live.
+- **SEO basics** for a React Router + Vite SPA: per-route metadata, heading structure, OG tags, robots/sitemap, and basic structured data.
+
+It does not replace:
+- component structure rules → `fe--component-frontend.mdc`
+- UX/accessibility rules → `fe--uiux-accessibility-frontend.mdc`
+- performance optimization details → `fe--performance-frontend.mdc`
+
+## i18n (internationalization)
+
+### Hard rules
+
+- **Do not hard-code user-facing strings** in components (labels, titles, empty states, errors).
+- Use **translation keys** (e.g. `common.save`, `users.empty.title`) and `t()` lookups.
+- Use **pluralization** via `count` rather than manual `if (count === 1)`.
+- Use **locale-aware formatting** for numbers, currency, and dates (Intl or i18n formatter).
+
+### Folder structure (recommended)
+
+Keep all translation resources under:
+
+- `client/src/i18n/`
+  - `index.ts` (i18n bootstrap/init)
+  - `locales/`
+    - `en/`
+      - `common.json`
+      - `...namespaces.json`
+    - `vi/`
+      - `common.json`
+      - `...namespaces.json`
+  - `format.ts` (optional: centralized Intl formatters)
+
+### Key conventions
+
+- Keys are **stable**, semantic, and hierarchical.
+- Avoid copying raw English/Vietnamese strings as keys.
+- Prefer namespaces (e.g. `common`, `auth`, `users`, `settings`) to keep files small.
+
+### Pluralization (i18next-style pattern)
+
+Pluralization should use `count` and plural forms, e.g. `key_one`, `key_other`.
+Example reference:
+
+```ts
+// t('items', { count: 1 }) -> "1 item"
+// t('items', { count: 5 }) -> "5 items"
+```
+
+### Complex rich text
+
+For translations that need embedded links/strong/code, use a “Trans”-style approach (component mapping) instead of concatenating strings.
+
+## Locale formatting (numbers/dates)
+
+User-visible formatting must be locale-aware:
+- Numbers/currency: `Intl.NumberFormat(locale, options)`
+- Dates/times: `Intl.DateTimeFormat(locale, options)`
+
+Avoid manual formatting like `toFixed()` for money or custom date string building in UI.
+
+## SEO basics (React Router + Vite SPA)
+
+### Reality check (SPA)
+
+React Router + Vite is a SPA; SEO for purely client-rendered pages is limited compared to SSR/SSG.
+Still, you must implement correct metadata and structure to maximize indexability and sharing.
+
+### Required metadata per route
+
+For every public route/page, set:
+- `<title>`
+- `<meta name="description">`
+- `<link rel="canonical">` (when applicable)
+- Open Graph tags: `og:title`, `og:description`, `og:image`, `og:url`
+- Twitter card tags (if sharing matters)
+
+Recommended approach: a Helmet-style library where nested pages override layout defaults.
+
+### Headings and semantic structure
+
+- Each page has exactly **one** primary `<h1>`.
+- Heading order is logical (`h2` under `h1`, etc.); do not skip levels for styling.
+- Use semantic landmarks: `<main>`, `<nav>`, `<header>`, `<footer>`.
+
+### robots + sitemap
+
+Provide in `client/public/` (or equivalent static assets folder):
+- `robots.txt`
+- `sitemap.xml`
+
+If the app has both public pages and authenticated pages:
+- Block private routes from indexing via robots and/or meta directives where appropriate.
+
+### Structured data (basic)
+
+When it makes sense (articles, products, organization), add JSON-LD:
+
+```html
+<script type="application/ld+json">
+  { "/* JSON-LD object */": true }
+</script>
+```
+
+## Performance & mobile-friendly (SEO-relevant)
+
+SEO is affected by usability and performance signals:
+- Ensure mobile-first responsiveness and touch targets (see `fe--uiux-accessibility-frontend.mdc`).
+- Track and improve Core Web Vitals (see `fe--performance-frontend.mdc`).
+
+## Checklist (i18n + SEO)
+
+Before shipping:
+- **No hard-coded UI text**: user-facing strings use translation keys.
+- **Pluralization**: uses `count`-based plural forms; no manual plural string hacks.
+- **Locale formatting**: numbers/dates use Intl (or centralized formatter), not ad-hoc string building.
+- **Per-route meta**: title/description/canonical/OG are set for public routes.
+- **Headings**: one `h1`, logical hierarchy, semantic landmarks.
+- **robots/sitemap**: present and correct for public vs private routes.
+- **Structured data**: JSON-LD added where it improves rich results.

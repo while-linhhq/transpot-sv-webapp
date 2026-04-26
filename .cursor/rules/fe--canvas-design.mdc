@@ -1,0 +1,85 @@
+---
+description: Create design-philosophy-driven static artwork (PNG/PDF). Invoke when asked to design posters/artwork/static visuals; produce a design philosophy (.md) then express it as a single-page PNG/PDF with master-level craft, originality, and clean typography.
+alwaysApply: false
+---
+
+## Canvas Design (Static Visual Art)
+
+Use this rule when the user asks for:
+- a poster
+- a piece of art / static visual design
+- a single-page visual identity artifact
+- a PNG/PDF “hero” graphic
+
+Do not use this rule for:
+- app UI screens, component systems, or general web layouts (use frontend design/UX rules instead)
+
+## Inputs to ask for (if missing)
+
+Ask only what’s needed to execute:
+- **Output format**: PNG or PDF
+- **Size**: A4 / A3 / square / custom px (default: A4 portrait for PDF, 2048×2732 for PNG)
+- **Subject / theme**: 1–2 sentences
+- **Text (minimal)**: title phrase + optional small caption (or “no text”)
+- **Palette preference**: optional (otherwise choose intentionally)
+- **Any hard constraints**: must-include / must-avoid
+
+If the user won’t specify, choose strong defaults and proceed.
+
+## Two-step process (required)
+
+### Step 1 — Design Philosophy Creation (write a .md file)
+
+Create a **visual philosophy / aesthetic movement**, not templates or UI layouts.
+
+**Requirements**
+- Name the movement (1–2 words)
+- Write **4–6 paragraphs** describing how it manifests through:
+  - space and form
+  - color and material
+  - scale and rhythm
+  - composition and balance
+  - visual hierarchy
+- Emphasize craftsmanship repeatedly: “meticulously crafted”, “painstaking attention”, “master-level execution”.
+- Avoid redundancy; mention each design aspect once unless adding new depth.
+- Leave creative space: specific direction, but not over-prescriptive.
+- Minimal text as visual accent; no long explanatory copy.
+
+### Step 2 — Express it visually (create a single-page PNG or PDF)
+
+Use the philosophy as the blueprint to produce **one** highly visual, design-forward page (unless the user asks for multi-page).
+
+**Visual execution requirements**
+- 90% visual design, 10% essential text
+- Perfect margins: nothing falls off page, nothing overlaps, clean breathing room
+- Composition must look **human-crafted**: countless refinements, crisp alignment, intentional hierarchy
+- Prefer systematic visual language (diagram-like markers, repeated motifs, layered patterns) where appropriate
+- Typography is part of the art (not an afterthought)
+- Use **original design**: never copy a specific artist’s work or a copyrighted piece
+
+**Typography requirements**
+- Keep text minimal and purposeful
+- Use design-forward fonts; if the workspace has `./canvas-fonts`, choose from there
+- Ensure typography never collides; spacing and kerning must feel deliberate
+
+## Subtle reference (depth layer)
+
+Before Step 2, identify a subtle conceptual thread from the user’s request:
+- It should feel like “DNA” embedded in the piece, not a literal depiction.
+- People who know the topic feel it; others still experience a strong composition.
+
+## Refinement pass (required)
+
+Do a second pass focused on refinement, not adding more elements:
+- tighten spacing, alignment, hierarchy
+- simplify and unify
+- improve crispness and cohesion
+
+## Output format (must)
+
+Return:
+- **1 design philosophy file**: `.md`
+- **1 artwork**: `.png` or `.pdf` (single page)
+
+If multi-page is requested:
+- produce multiple pages as separate PNGs or a single multi-page PDF, all consistent with the same philosophy.

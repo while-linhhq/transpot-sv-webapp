@@ -1,0 +1,112 @@
+---
+description: Run an end-to-end git commit workflow (inspect → stage → emoji Conventional Commit). Invoke to auto-execute without extra prompting.
+alwaysApply: false
+---
+
+# Git Commit (Run) Command
+
+## Intent
+
+When invoked, execute an end-to-end commit workflow:
+- inspect changes
+- stage intentionally (avoid secrets)
+- create a commit message following the spec below (emoji + Conventional Commits)
+
+Do **not** push unless the user explicitly asks.
+
+## Execution steps (must follow)
+
+### 0) Pre-flight safety
+- If `.env`, credentials, tokens, or secret-like files are present, **do not stage them**. Leave them unstaged and proceed with safe files only.
+- Never stage `node_modules/` or build artifacts.
+
+### 1) Inspect (always)
+Run:
+- `git status`
+- `git diff`
+- `git diff --staged`
+- `git log -5 --oneline`
+
+### 2) Stage (default behavior)
+- If there are **only a few changed files** and they are clearly part of the same logical change, stage them all.
+- If there are many unrelated changes, stage only the subset that forms **one logical change**, and leave the rest unstaged.
+- Prefer explicit paths (no interactive add).
+
+### 3) Write message (must comply)
+Message must comply with the following spec:
+
+#### Subject format (with exactly one emoji)
+
+```text
+<emoji> <type>(<scope>): <short description>
+```
+
+Without scope:
+
+```text
+<emoji> <type>: <short description>
+```
+
+Notes:
+- Add `!` **only** for breaking changes (Conventional Commits), e.g.:
+  - `<emoji> feat(api)!: remove deprecated field`
+  - `<emoji> feat!: change default behavior`
+
+#### Types (repo)
+| `type` | When to use |
+|--------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, no logic change |
+| `refactor` | Restructure without feat/fix |
+| `test` | Add or fix tests |
+| `chore` | Build, tooling, dependencies |
+| `perf` | Performance improvement |
+| `build` | Build system / bundling changes |
+| `ci` | CI configuration changes |
+| `revert` | Revert a prior commit |
+
+#### Emoji mapping (stable in this repo)
+| `type` | Emoji |
+|--------|--------|
+| `feat` | ✨ |
+| `fix` | 🐛 |
+| `docs` | 📝 |
+| `style` | 💄 |
+| `refactor` | ♻️ |
+| `test` | ✅ |
+| `chore` | 🔧 |
+| `perf` | ⚡️ |
+| `build` | 🔧 |
+| `ci` | 🔧 |
+| `revert` | ♻️ |
+
+#### Subject rules
+- Imperative English, no trailing period.
+- Keep it short (prefer ~50 chars; up to ~72 chars where feasible).
+- Scope is optional, lowercase, short, no spaces (e.g. `rules`, `scripts`, `client`, `server`).
+- One emoji only, and it must be the first token.
+
+#### Body / footer rules (optional)
+- Use **body** to explain **why** / impact (1–6 lines). Hard-wrap at ~72 chars/line.
+- Use **footer** for issue closing or breaking changes:
+  - `Closes #123`
+  - `BREAKING CHANGE: ...`
+  - Other footers may use git-trailer style (e.g. `Refs: ...`, `Reviewed-by: ...`).
+
+#### Revert commits (when needed)
+- Prefer default `git revert` format so tools can parse it:
+  - Subject: `♻️ revert: <original subject>`
+  - Body includes: `This reverts commit <sha>.`
+
+### 4) Commit (must)
+- Commit using a heredoc to avoid quoting issues and preserve body/footer formatting.
+- After commit: run `git status` to verify.
+
+### 5) Stop conditions
+Stop and ask for direction only when:
+- the change set is too large/unclear to form one logical commit safely
+- secrets appear likely to be staged and you can’t confidently exclude them
+- the repo has no changes to commit
+

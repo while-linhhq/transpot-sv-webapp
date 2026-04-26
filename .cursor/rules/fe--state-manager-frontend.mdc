@@ -1,0 +1,164 @@
+---
+description: Frontend state management rule — choose the right state layer (local vs global vs server-state). Supports Zustand or Redux Toolkit depending on the project, and uses TanStack Query for server state.
+globs: "client/src/**/*.{ts,tsx,js,jsx}"
+alwaysApply: false
+---
+
+## Frontend State Management Rule (scope: state only)
+
+This rule defines how to structure and choose state management:
+- **Local UI state** (React hooks)
+- **Global client state** (Zustand or Redux Toolkit — use what the project already uses)
+- **Server state** (TanStack Query)
+- Clear separation between **UI**, **data access**, **caching**, and **error/loading** handling
+
+It does not replace:
+- component structure & hook discipline → `fe--component-frontend.mdc`
+- clean code principles → `fe--clean-code-structure.mdc`
+- folder architecture → `fe--frontend-structure.mdc`
+
+## Decision tree (pick the simplest layer)
+
+1) **Is it server data** (comes from API, needs caching, invalidation, refetch, pagination)?
+→ Use **TanStack Query** (not global store).
+
+2) **Is it purely local UI state** (open/close, input drafts, tabs, ephemeral toggles)?
+→ Use **local state** (`useState`, `useReducer`) and keep it close to the component.
+
+3) **Is it shared client state across multiple routes/components** (auth session UI state, global filters shared across screens, app shell preferences)?
+→ Use **Zustand** (preferred) or **Redux Toolkit** (if the project already uses Redux).
+
+Rule: default to the smallest scope. If unsure, start local, then lift/extract.
+
+## Folder placement (align with architecture)
+
+- Feature state belongs in: `client/src/features/<feature>/store/`
+- Shared/global app state (if any) belongs in: `client/src/store/` or `client/src/features/app/store/` (pick one pattern)
+
+## Local state (React hooks)
+
+- Prefer **derived values** during render; avoid “sync effects”.
+- If a component has many interacting states, prefer `useReducer` or extract a custom hook.
+- Keep local state minimal (see hook discipline in `fe--component-frontend.mdc`).
+
+## Server state (TanStack Query)
+
+Use TanStack Query for:
+- fetching, caching, background refetch, pagination, optimistic updates
+
+Rules:
+- Query keys must be **stable, serializable arrays** (e.g. `['users', userId]`, `['products', 'list', filters]`).
+- Do not manually `refetch` in a `useEffect` when `queryKey` changes; rely on `queryKey`.
+- Invalidate queries after mutations (`invalidateQueries`) to keep UI consistent.
+
+Example (invalidate on mutation success):
+
+```ts
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+const queryClient = useQueryClient();
+const mutation = useMutation({
+  mutationFn: addTodo,
+  onSuccess: async () => {
+    await queryClient.invalidateQueries({ queryKey: ['todos'] });
+  },
+});
+```
+
+## Global client state — Zustand (preferred when present)
+
+Use Zustand for lightweight global client state.
+
+Rules:
+- Use **selectors** (`useStore((s) => s.slice)`) to avoid unnecessary re-renders.
+- Keep stores small; split by feature and/or use the **slice pattern** for larger domains.
+- Prefer actions that update state via functional `set((state) => ...)`.
+- Persistence is allowed only for true “user preferences” (theme, layout), and should use `persist` with `partialize`.
+
+Example (slice pattern):
+
+```ts
+import { create, type StateCreator } from 'zustand';
+
+type BearSlice = { bears: number; addBear: () => void };
+type FishSlice = { fishes: number; addFish: () => void };
+type Store = BearSlice & FishSlice;
+
+const createBearSlice: StateCreator<Store, [], [], BearSlice> = (set) => ({
+  bears: 0,
+  addBear: () => set((s) => ({ bears: s.bears + 1 })),
+});
+
+const createFishSlice: StateCreator<Store, [], [], FishSlice> = (set) => ({
+  fishes: 0,
+  addFish: () => set((s) => ({ fishes: s.fishes + 1 })),
+});
+
+export const useStore = create<Store>()((...a) => ({
+  ...createBearSlice(...a),
+  ...createFishSlice(...a),
+}));
+```
+
+## Global client state — Redux Toolkit (only if project uses Redux)
+
+Use Redux Toolkit when the project already has Redux, or when you need:
+- complex global state with strict event history
+- heavy devtools/debugging requirements
+
+Rules:
+- Use `configureStore` + `createSlice`.
+- Use selectors for derived data; do not compute heavy derived data inline repeatedly.
+- Async logic:
+  - prefer RTK patterns (`createAsyncThunk`) when staying within Redux
+  - still consider TanStack Query for server state unless the project standardizes on RTK Query
+
+Example (slice + async thunk):
+
+```ts
+import { configureStore, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+export const fetchPosts = createAsyncThunk('posts/fetch', async () => {
+  const res = await fetch('/api/posts');
+  return (await res.json()) as { id: string; title: string }[];
+});
+
+const postsSlice = createSlice({
+  name: 'posts',
+  initialState: { items: [] as { id: string; title: string }[], status: 'idle' as 'idle' | 'pending' | 'succeeded' | 'failed' },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      });
+  },
+});
+
+export const store = configureStore({ reducer: { posts: postsSlice.reducer } });
+```
+
+## Separate data access from UI (required)
+
+- UI components must not embed ad-hoc API access.
+- Data access lives in:
+  - feature `services/` (API client/repository), and
+  - server state in TanStack Query hooks
+
+Each async flow must define:
+- loading
+- error
+- empty (when relevant)
+
+## Checklist (state management gates)
+
+Before shipping state changes, confirm:
+- **Layer choice**: server state uses TanStack Query; client shared state uses Zustand/Redux; local UI state stays local.
+- **No sync effects**: avoid `useEffect` to mirror/derive state.
+- **Stability**: query keys are stable arrays; selectors are used for Zustand/Redux to avoid re-renders.
+- **Boundaries**: API access is in services/query hooks, not in generic UI components.
+- **Async UX**: loading/error states are present; mutations invalidate/update caches appropriately.
