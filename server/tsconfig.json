@@ -16,6 +16,8 @@
   "include": [
     "server.ts",
     "app.ts",
+    "lib/**/*.ts",
+    "prisma/**/*.ts",
     "config/**/*.ts",
     "routes/**/*.ts",
     "controllers/**/*.ts",
