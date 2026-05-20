@@ -1,0 +1,25 @@
+{
+  "page": {
+    "eyebrow": "Library",
+    "title": "Real gallery"
+  },
+  "list": {
+    "eyebrow": "Media library",
+    "title": "ALL REAL PHOTOS & VIDEOS",
+    "description": "A full media library from house moves, room moves, office relocations and cargo trips.",
+    "empty": "No media matches this filter.",
+    "filters": {
+      "all": "All",
+      "image": "Photos",
+      "video": "Videos"
+    },
+    "folderFilters": {
+      "all": "All folders"
+    },
+    "imageAlt": "Real media {index}"
+  },
+  "meta": {
+    "title": "Real gallery",
+    "description": "Full real photo and video library by Le Dat Transport"
+  }
+}
