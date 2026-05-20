@@ -1,0 +1,184 @@
+{
+  "detail": {
+    "breadcrumb": "Dịch vụ",
+    "contactQuote": "Liên hệ báo giá",
+    "overviewTitle": "Tổng quan dịch vụ",
+    "overviewLead": "{description}",
+    "overviewBody": "{service} được triển khai theo quy trình tiêu chuẩn, có đội ngũ giám sát và checklist rõ ràng ở từng công đoạn để đảm bảo tiến độ cũng như an toàn tài sản.",
+    "checklistTitle": "Checklist trước khi triển khai",
+    "checklistItems": [
+      "Xác nhận khối lượng đồ và điều kiện lối đi/thang máy",
+      "Chốt thời gian thi công và điểm tập kết xe tải",
+      "Phân nhóm đồ dễ vỡ, đồ giá trị, đồ cồng kềnh",
+      "Thống nhất vật tư đóng gói và phương án bảo vệ tài sản"
+    ],
+    "executionTimelineTitle": "Mốc thời gian tiêu chuẩn",
+    "timeline": [
+      { "label": "Khảo sát", "value": "30-60 phút" },
+      { "label": "Báo giá", "value": "10-15 phút" },
+      { "label": "Triển khai", "value": "Trong ngày" },
+      { "label": "Hỗ trợ", "value": "24/7" }
+    ],
+    "commitmentsTitle": "Cam kết chất lượng",
+    "realMedia": "Hình ảnh & video thực tế",
+    "benefits": "Lợi ích",
+    "process": "Quy trình thực hiện",
+    "faq": "Câu hỏi thường gặp",
+    "ctaTitle": "Cần tư vấn thêm về {service}?",
+    "callHotline": "Gọi {hotline}",
+    "viewPricing": "Xem bảng giá"
+  },
+  "serviceProfiles": {
+    "chuyen-nha-tron-goi": {
+      "highlights": ["Trọn gói", "Đúng hẹn", "Không phí ẩn"],
+      "benefits": [
+        "Khảo sát tận nơi và báo giá rõ ràng trước khi làm",
+        "Đóng gói chuyên nghiệp: carton, màng PE, xốp hơi",
+        "Bố trí nhân sự và xe theo khối lượng thực tế",
+        "Cam kết bồi thường nếu phát sinh hư hại do vận chuyển"
+      ],
+      "process": [
+        "Khảo sát hiện trạng và tư vấn phương án chuyển nhà tối ưu",
+        "Đóng gói theo nhóm đồ: dễ vỡ, điện tử, nội thất cồng kềnh",
+        "Vận chuyển bằng xe tải phù hợp và giám sát xuyên suốt",
+        "Lắp đặt, sắp xếp tại điểm mới và nghiệm thu cùng khách hàng"
+      ],
+      "faqs": [
+        {
+          "question": "Giá {service} được tính như thế nào?",
+          "answer": "Chi phí dựa trên khối lượng đồ, quãng đường và điều kiện bốc xếp (thang bộ/thang máy). Báo giá chốt trước khi triển khai."
+        },
+        {
+          "question": "Có hỗ trợ đóng gói vật dụng dễ vỡ không?",
+          "answer": "Có. Đội ngũ dùng vật tư chuyên dụng và dán nhãn riêng cho từng nhóm đồ dễ vỡ để giảm rủi ro va đập."
+        }
+      ]
+    },
+    "chuyen-van-phong": {
+      "highlights": ["Kế hoạch chi tiết", "Giảm gián đoạn", "Bàn giao nhanh"],
+      "benefits": [
+        "Lập checklist và timeline theo từng phòng ban",
+        "Dán mã thiết bị, bàn ghế, hồ sơ để kiểm soát thất lạc",
+        "Tổ chức chuyển theo đợt để không gián đoạn vận hành",
+        "Bàn giao setup cơ bản tại văn phòng mới"
+      ],
+      "process": [
+        "Khảo sát mặt bằng đi và đến, đo lối di chuyển",
+        "Phân loại tài sản văn phòng và lên phương án đóng gói",
+        "Điều phối xe và nhân sự theo khung giờ đã chốt",
+        "Nghiệm thu theo danh sách bàn giao sau khi hoàn tất"
+      ],
+      "faqs": [
+        {
+          "question": "{service} có làm ngoài giờ hành chính không?",
+          "answer": "Có. Chúng tôi hỗ trợ khung giờ tối hoặc cuối tuần để giảm ảnh hưởng hoạt động kinh doanh."
+        },
+        {
+          "question": "Hồ sơ và thiết bị IT có được xử lý riêng không?",
+          "answer": "Có. Hồ sơ và thiết bị được đóng gói theo mã khu vực/nhân sự, niêm phong và bàn giao theo checklist."
+        }
+      ]
+    },
+    "chuyen-hang-hoa": {
+      "highlights": ["Linh hoạt tải trọng", "Giao đúng hẹn", "Theo dõi rõ ràng"],
+      "benefits": [
+        "Nhận hàng lẻ, hàng cồng kềnh, hàng cần bốc xếp tận nơi",
+        "Đa dạng loại xe theo tải trọng và tuyến đường",
+        "Có phương án ràng buộc và chống xê dịch khi vận chuyển",
+        "Hỗ trợ điều phối nhanh theo khung giờ khách yêu cầu"
+      ],
+      "process": [
+        "Tiếp nhận thông tin hàng hóa và điểm giao nhận",
+        "Tư vấn loại xe, vật tư đóng gói và thời gian vận chuyển",
+        "Bốc xếp, chằng buộc an toàn trước khi xuất phát",
+        "Giao hàng, đối soát và xác nhận hoàn tất"
+      ],
+      "faqs": [
+        {
+          "question": "Có nhận vận chuyển hàng gấp trong ngày không?",
+          "answer": "Có. Tùy khu vực và thời điểm, chúng tôi ưu tiên điều xe gần nhất để hỗ trợ nhanh."
+        },
+        {
+          "question": "Hàng cồng kềnh có bị tính phí thêm không?",
+          "answer": "Có thể phát sinh phụ phí bốc xếp hoặc thiết bị hỗ trợ, nhưng luôn được báo trước và xác nhận với khách."
+        }
+      ]
+    },
+    "chuyen-phong-tro": {
+      "highlights": ["Giá tối ưu", "Xe vào hẻm", "Hỗ trợ nhanh"],
+      "benefits": [
+        "Phù hợp nhu cầu sinh viên, người thuê trọ, căn hộ nhỏ",
+        "Xe nhỏ linh hoạt vào hẻm và khu dân cư đông",
+        "Bốc xếp nhanh gọn, tối ưu thời gian chuyển phòng",
+        "Giá minh bạch, dễ chọn theo ngân sách"
+      ],
+      "process": [
+        "Tiếp nhận thông tin đồ đạc và vị trí phòng trọ",
+        "Tư vấn loại xe và số nhân sự phù hợp",
+        "Đóng gói nhanh các vật dụng cơ bản",
+        "Vận chuyển và sắp xếp lại tại phòng mới"
+      ],
+      "faqs": [
+        {
+          "question": "Chuyển phòng trọ có cần đặt lịch trước không?",
+          "answer": "Nên đặt trước để giữ khung giờ mong muốn, đặc biệt vào cuối tuần hoặc đầu/cuối tháng."
+        },
+        {
+          "question": "Có hỗ trợ tháo lắp nội thất cơ bản không?",
+          "answer": "Có. Chúng tôi hỗ trợ tháo/lắp giường, bàn, kệ cơ bản khi khách có nhu cầu."
+        }
+      ]
+    },
+    "di-doi-nha-xuong": {
+      "highlights": ["Liên tỉnh", "Theo tuyến tối ưu", "An toàn hàng hóa"],
+      "benefits": [
+        "Hỗ trợ tuyến đường dài Bắc - Trung - Nam",
+        "Tối ưu chi phí theo cung đường và tải trọng thực tế",
+        "Linh hoạt điểm giao nhận theo kế hoạch sản xuất",
+        "Bảo quản hàng hóa trong suốt hành trình dài"
+      ],
+      "process": [
+        "Khảo sát tuyến đường, điểm lên xuống hàng",
+        "Lên kế hoạch xe và lịch vận chuyển theo từng chặng",
+        "Đóng gói, chằng buộc và niêm phong hàng hóa",
+        "Giao nhận, đối chiếu biên bản tại điểm đến"
+      ],
+      "faqs": [
+        {
+          "question": "Giá liên tỉnh được tính ra sao?",
+          "answer": "Giá phụ thuộc km tuyến, loại xe, số điểm dừng và thời gian chờ. Báo giá sẽ tách rõ từng hạng mục."
+        },
+        {
+          "question": "Có hỗ trợ vận chuyển nhiều điểm giao không?",
+          "answer": "Có. Chúng tôi thiết kế lộ trình nhiều điểm để tối ưu thời gian và chi phí."
+        }
+      ]
+    },
+    "chuyen-chung-cu": {
+      "highlights": ["Chung cư cao tầng", "Quy trình chuẩn", "Bảo vệ tài sản"],
+      "benefits": [
+        "Kinh nghiệm làm việc với tòa nhà, ban quản lý và giờ cấm tải",
+        "Bảo vệ sàn, thang máy, hành lang trong quá trình vận chuyển",
+        "Đóng gói nội thất, đồ điện tử theo tiêu chuẩn an toàn",
+        "Sắp xếp đồ theo phòng chức năng sau khi chuyển đến"
+      ],
+      "process": [
+        "Làm rõ quy định vận chuyển của tòa nhà",
+        "Đóng gói và phân loại theo khu vực căn hộ",
+        "Vận chuyển theo khung giờ đăng ký với ban quản lý",
+        "Bàn giao, kiểm tra tài sản và nghiệm thu hoàn tất"
+      ],
+      "faqs": [
+        {
+          "question": "Có hỗ trợ làm việc với ban quản lý tòa nhà không?",
+          "answer": "Có. Chúng tôi phối hợp đăng ký khung giờ, thang máy và quy định vận chuyển theo tòa nhà."
+        },
+        {
+          "question": "Đồ nội thất lớn chuyển lên tầng cao thế nào?",
+          "answer": "Đội ngũ đánh giá kích thước và lối đi trước, sau đó chọn phương án tháo lắp hoặc thiết bị hỗ trợ phù hợp."
+        }
+      ]
+    }
+  },
+  "notFound": "Không tìm thấy"
+}
