@@ -1,0 +1,184 @@
+{
+  "detail": {
+    "breadcrumb": "Services",
+    "contactQuote": "Request a quote",
+    "overviewTitle": "Service overview",
+    "overviewLead": "{description}",
+    "overviewBody": "{service} is executed with a standardized workflow, supervised crews, and a clear checklist at every stage to ensure schedule and asset safety.",
+    "checklistTitle": "Pre-execution checklist",
+    "checklistItems": [
+      "Confirm total volume and access conditions (stairs/elevator)",
+      "Finalize execution window and truck staging point",
+      "Classify fragile, high-value, and bulky items",
+      "Agree on packing materials and asset protection method"
+    ],
+    "executionTimelineTitle": "Typical timeline",
+    "timeline": [
+      { "label": "Survey", "value": "30-60 mins" },
+      { "label": "Quotation", "value": "10-15 mins" },
+      { "label": "Execution", "value": "Same day" },
+      { "label": "Support", "value": "24/7" }
+    ],
+    "commitmentsTitle": "Quality commitments",
+    "realMedia": "Real photos & videos",
+    "benefits": "Benefits",
+    "process": "How it works",
+    "faq": "FAQ",
+    "ctaTitle": "Need more advice about {service}?",
+    "callHotline": "Call {hotline}",
+    "viewPricing": "View pricing"
+  },
+  "serviceProfiles": {
+    "chuyen-nha-tron-goi": {
+      "highlights": ["Full-service", "On-time", "No hidden fees"],
+      "benefits": [
+        "On-site survey and transparent quote before execution",
+        "Professional packing with carton boxes, PE film and bubble wrap",
+        "Truck and crew arranged based on actual volume",
+        "Damage compensation commitment for transport-related incidents"
+      ],
+      "process": [
+        "Survey and propose the best moving plan",
+        "Pack by category: fragile, electronics and bulky furniture",
+        "Transport with suitable trucks under active supervision",
+        "Install and arrange at destination, then handover"
+      ],
+      "faqs": [
+        {
+          "question": "How is {service} priced?",
+          "answer": "Pricing depends on volume, route distance and loading conditions (stairs/elevator). Final quote is confirmed before work starts."
+        },
+        {
+          "question": "Do you support fragile-item packing?",
+          "answer": "Yes. We use protective materials and dedicated labels for fragile categories to minimize impact risk."
+        }
+      ]
+    },
+    "chuyen-van-phong": {
+      "highlights": ["Detailed planning", "Low downtime", "Fast handover"],
+      "benefits": [
+        "Checklist and timeline per department",
+        "Labeling system for desks, devices and documents",
+        "Staged relocation to reduce operation disruption",
+        "Basic setup support at the new office"
+      ],
+      "process": [
+        "Survey current and destination office layouts",
+        "Categorize office assets and packing method",
+        "Dispatch trucks and crew by approved schedule",
+        "Handover against checklist after completion"
+      ],
+      "faqs": [
+        {
+          "question": "Can office relocation be done outside business hours?",
+          "answer": "Yes. We support evening and weekend windows to avoid disrupting your operations."
+        },
+        {
+          "question": "Are documents and IT equipment handled separately?",
+          "answer": "Yes. They are packed and sealed by zone/team code, then handed over by checklist."
+        }
+      ]
+    },
+    "chuyen-hang-hoa": {
+      "highlights": ["Flexible load", "On-time delivery", "Clear tracking"],
+      "benefits": [
+        "Support for parcel, bulky and on-site loading requests",
+        "Multiple truck options by route and payload",
+        "Secure tie-down and anti-shift handling",
+        "Fast dispatch for urgent delivery windows"
+      ],
+      "process": [
+        "Collect cargo and route information",
+        "Recommend truck type, packing and schedule",
+        "Load and secure cargo before departure",
+        "Deliver and confirm completion with recipient"
+      ],
+      "faqs": [
+        {
+          "question": "Do you support same-day urgent transport?",
+          "answer": "Yes. Depending on location and timing, we prioritize the nearest available truck."
+        },
+        {
+          "question": "Are there extra fees for bulky cargo?",
+          "answer": "Additional handling/equipment fees may apply, but they are always disclosed and approved first."
+        }
+      ]
+    },
+    "chuyen-phong-tro": {
+      "highlights": ["Budget-friendly", "Alley access", "Fast support"],
+      "benefits": [
+        "Suitable for students, renters and compact rooms",
+        "Small trucks can access narrow alleys",
+        "Quick loading to shorten move time",
+        "Transparent pricing for tight budgets"
+      ],
+      "process": [
+        "Collect item list and pickup/drop locations",
+        "Recommend truck size and crew count",
+        "Quick-pack essential belongings",
+        "Move and arrange at the new room"
+      ],
+      "faqs": [
+        {
+          "question": "Do I need to book room moving in advance?",
+          "answer": "It is recommended to reserve early, especially on weekends and month-start/month-end dates."
+        },
+        {
+          "question": "Do you provide basic furniture disassembly?",
+          "answer": "Yes. We can support basic disassembly/reassembly for beds, desks and shelves when needed."
+        }
+      ]
+    },
+    "di-doi-nha-xuong": {
+      "highlights": ["Inter-province", "Optimized routes", "Cargo safety"],
+      "benefits": [
+        "Long-distance support across North - Central - South routes",
+        "Cost optimization by route and actual payload",
+        "Flexible pickup/drop windows aligned with operations",
+        "Cargo protection for long-haul trips"
+      ],
+      "process": [
+        "Survey route and loading/unloading points",
+        "Plan trucks and schedule by route segments",
+        "Pack, secure and seal cargo for transit",
+        "Deliver and reconcile records at destination"
+      ],
+      "faqs": [
+        {
+          "question": "How is inter-province pricing calculated?",
+          "answer": "Pricing depends on distance, truck class, stop points and waiting time. We provide itemized quotes."
+        },
+        {
+          "question": "Do you support multi-drop deliveries?",
+          "answer": "Yes. We can design multi-stop routes to optimize both time and cost."
+        }
+      ]
+    },
+    "chuyen-chung-cu": {
+      "highlights": ["High-rise ready", "Standard process", "Asset protection"],
+      "benefits": [
+        "Experienced with condo regulations and loading windows",
+        "Floor, elevator and corridor protection during move",
+        "Safe packing for furniture and electronics",
+        "Room-by-room arrangement after delivery"
+      ],
+      "process": [
+        "Confirm tower transport rules and constraints",
+        "Pack and label by apartment zones",
+        "Move in approved building windows",
+        "Handover, verify assets and complete acceptance"
+      ],
+      "faqs": [
+        {
+          "question": "Do you coordinate with building management?",
+          "answer": "Yes. We support slot registration, elevator booking and move-in policy compliance."
+        },
+        {
+          "question": "How do you move large furniture to high floors?",
+          "answer": "We assess dimensions and pathways in advance, then choose safe disassembly or equipment-assisted methods."
+        }
+      ]
+    }
+  },
+  "notFound": "Not found"
+}
