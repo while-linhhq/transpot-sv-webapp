@@ -1,0 +1,94 @@
+{
+  "hero": {
+    "callPrompt": "Call {hotlines} now — free quote",
+    "imageAlt": "Le Dat transport team — Da Nang",
+    "carouselLabel": "Homepage hero images",
+    "carouselDotsLabel": "Choose slide",
+    "carouselGoToSlide": "Go to slide {n}",
+    "available247": "24/7"
+  },
+  "marquee": {
+    "items": [
+      "100% insured",
+      "On-time, every time",
+      "Friendly professional team",
+      "No hidden fees"
+    ]
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "TRANSPORT SERVICES",
+    "description": "Your belongings are our reputation — yellow uniforms, dedicated trucks",
+    "viewDetail": "View details"
+  },
+  "usp": {
+    "eyebrow": "Commitment",
+    "title": "WHY CHOOSE LE DAT?",
+    "description": "Optimal moving solutions — affordable, fast and safe in Da Nang",
+    "imageAlt": "Le Dat transport staff"
+  },
+  "process": {
+    "eyebrow": "Process",
+    "title": "FULL-SERVICE MOVING PROCESS",
+    "packingEyebrow": "Packing",
+    "packingTitle": "PACKING PROCESS"
+  },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "REAL PHOTOS",
+    "description": "A compact gallery of real photos and videos from house moves, room moves, office relocations and cargo trips.",
+    "alts": [
+      "Le Dat team on site",
+      "Full house moving",
+      "Professional loading",
+      "Office relocation",
+      "Cargo transport",
+      "Da Nang truck fleet",
+      "Safe packing",
+      "Apartment moving",
+      "24/7 service",
+      "Yellow uniform — trusted brand",
+      "Bulky goods",
+      "Happy customers"
+    ],
+    "fallbackAlt": "Transport project {index}",
+    "viewAll": "View full gallery"
+  },
+  "projectsTeaser": {
+    "eyebrow": "Projects",
+    "title": "COMPLETED PROJECTS",
+    "description": "Recent representative moving projects",
+    "empty": "Project photos coming soon.",
+    "viewAll": "View projects page"
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "WHAT CUSTOMERS SAY ABOUT LE DAT",
+    "description": "Real feedback from customers who used our moving services",
+    "items": [
+      {
+        "image": "/đánh giá khách hàng/z7842896030839_42ae64b2a10aa7ab4e52db2f259d9952.jpg",
+        "name": "Phuong Linh",
+        "location": "Thanh Khe, Da Nang",
+        "content": "The team arrived on time and handled everything with care. Items were well protected and nothing was lost."
+      },
+      {
+        "image": "/đánh giá khách hàng/z7842896122161_a26c2b847d62f0e60b22bd9bfca753b3.jpg",
+        "name": "My Linh",
+        "location": "Hai Chau, Da Nang",
+        "content": "Pricing was transparent from the start with no hidden fees. Friendly crew and very professional dismantling support."
+      },
+      {
+        "image": "/đánh giá khách hàng/z7842896213196_e2cad61a21a342c5c6e779e97fcaf1ee.jpg",
+        "name": "Le Han Ny",
+        "location": "Lien Chieu, Da Nang",
+        "content": "I moved my rental room on the weekend and got a truck quickly. Fast handling, fair price, and very helpful support."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "CONTACT US FOR A GREAT RATE",
+    "description": "Moving home, office or cargo — contact us today"
+  }
+}
