@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "projects": "Real gallery",
+    "contact": "Contact",
+    "pricing": "Pricing"
+  },
+  "hotlineBar": "Hotline 24/7:",
+  "cta": {
+    "quoteNow": "Get a quote",
+    "callNow": "Call now",
+    "callQuote": "Call for quote",
+    "pricing": "Pricing",
+    "zalo": "Chat on Zalo"
+  },
+  "labels": {
+    "hotline": "Hotline",
+    "email": "Email",
+    "address": "Address",
+    "services": "Services",
+    "links": "Links",
+    "contact": "Contact",
+    "taxCode": "Tax ID",
+    "serving": "Available",
+    "map": "Map",
+    "menu": "Menu"
+  },
+  "footer": {
+    "copyright": "© {year} {brand}. All rights reserved."
+  },
+  "hotlineSep": {
+    "or": " or ",
+    "bar": " | "
+  },
+  "aria": {
+    "callHotline": "Call hotline",
+    "chatZalo": "Chat on Zalo"
+  }
+}
