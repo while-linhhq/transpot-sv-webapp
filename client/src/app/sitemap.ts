@@ -1,35 +1,35 @@
 import type { MetadataRoute } from 'next';
-import { siteProfile } from '@/config/site-profile';
+import { SERVICE_SLUGS } from '@/config/site-config';
+import { routing } from '@/i18n/routing';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const serviceUrls = siteProfile.services.map((service) => ({
-    url: `${BASE_URL}/dich-vu/${service.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
+const staticPaths = ['', '/du-an-hoan-thanh', '/lien-he'] as const;
 
-  return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/du-an-hoan-thanh`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/lien-he`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    ...serviceUrls,
-  ];
+export default function sitemap(): MetadataRoute.Sitemap {
+  const entries: MetadataRoute.Sitemap = [];
+
+  for (const locale of routing.locales) {
+    const prefix = locale === routing.defaultLocale ? '' : `/${locale}`;
+
+    for (const path of staticPaths) {
+      entries.push({
+        url: `${BASE_URL}${prefix}${path}`,
+        lastModified: new Date(),
+        changeFrequency: path === '' ? 'weekly' : 'monthly',
+        priority: path === '' ? 1 : 0.8,
+      });
+    }
+
+    for (const slug of SERVICE_SLUGS) {
+      entries.push({
+        url: `${BASE_URL}${prefix}/dich-vu/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      });
+    }
+  }
+
+  return entries;
 }
