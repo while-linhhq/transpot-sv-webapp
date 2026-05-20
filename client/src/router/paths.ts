@@ -1,3 +1,4 @@
+/** Pathnames without locale prefix — use with `@/i18n/navigation` Link */
 export const paths = {
   home: '/',
   services: '/dich-vu',
