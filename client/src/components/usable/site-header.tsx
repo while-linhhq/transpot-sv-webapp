@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, Phone, Truck, X } from 'lucide-react';
+import { Menu, Phone, X } from 'lucide-react';
 import { siteProfile } from '@/config/site-profile';
 import { paths } from '@/router/paths';
 import { Button } from '@/components/ui/button';
+import { BrandLogo } from '@/components/usable/brand-logo';
+import { HotlineLinks } from '@/components/usable/hotline-links';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -25,12 +27,10 @@ export function SiteHeader() {
           <span className="flex items-center gap-2">
             <Phone className="h-4 w-4 text-brand-yellow" />
             Hotline 24/24:{' '}
-            <a
-              href={siteProfile.contact.hotlineHref}
-              className="font-bold text-brand-yellow hover:text-white"
-            >
-              {siteProfile.contact.hotline}
-            </a>
+            <HotlineLinks
+              linkClassName="text-brand-yellow hover:text-white"
+              separator=" | "
+            />
           </span>
           <span className="hidden text-blue-100 sm:inline">
             {siteProfile.brand.tagline}
@@ -39,18 +39,8 @@ export function SiteHeader() {
       </div>
 
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        <Link href={paths.home} className="flex items-center gap-2">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow text-primary shadow-md">
-            <Truck className="h-6 w-6" />
-          </span>
-          <span className="leading-tight">
-            <span className="block text-xs font-bold uppercase tracking-wide text-accent">
-              Taxi Tải
-            </span>
-            <span className="block text-xl font-extrabold text-primary">
-              {siteProfile.brand.shortName}
-            </span>
-          </span>
+        <Link href={paths.home} className="flex shrink-0 items-center">
+          <BrandLogo size="md" priority />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">

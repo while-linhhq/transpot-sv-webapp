@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import { siteProfile } from '@/config/site-profile';
 import { SectionHeading } from '@/components/usable/section-heading';
 import { Button } from '@/components/ui/button';
+import { HotlineLinks } from '@/components/usable/hotline-links';
 
 export function ContactSection() {
   return (
@@ -18,12 +19,10 @@ export function ContactSection() {
               <Phone className="mt-1 h-5 w-5 text-primary" />
               <div>
                 <p className="font-semibold">Hotline</p>
-                <a
-                  href={siteProfile.contact.hotlineHref}
-                  className="text-lg font-bold text-accent hover:underline"
-                >
-                  {siteProfile.contact.hotline}
-                </a>
+                <HotlineLinks
+                  layout="stack"
+                  linkClassName="text-lg text-accent"
+                />
               </div>
             </div>
             <div className="flex items-start gap-3">

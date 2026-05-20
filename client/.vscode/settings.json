@@ -1,0 +1,10 @@
+{
+  "trunk.enable": false,
+  "trunk.enableCodeLens": false,
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/public/videos/**": true,
+    "**/.trunk/**": true
+  }
+}

@@ -5,6 +5,8 @@ import { siteProfile } from '@/config/site-profile';
 import { siteAssets } from '@/config/site-assets';
 import { paths } from '@/router/paths';
 import { Button } from '@/components/ui/button';
+import { BrandLogo } from '@/components/usable/brand-logo';
+import { HotlineLinks } from '@/components/usable/hotline-links';
 
 export function HeroSection() {
   const { brand, contact } = siteProfile;
@@ -23,10 +25,8 @@ export function HeroSection() {
             {brand.tagline}
           </div>
 
-          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground md:text-5xl lg:text-[3.25rem]">
-            <span className="text-primary">Taxi Tải</span>{' '}
-            <span className="text-accent">{brand.shortName}</span>
-          </h1>
+          <BrandLogo size="xl" priority className="mb-5" />
+          <h1 className="sr-only">{brand.name}</h1>
 
           <p className="mt-4 text-lg leading-relaxed text-muted md:text-xl">
             {brand.description}
@@ -48,12 +48,10 @@ export function HeroSection() {
 
           <p className="mt-4 text-base font-semibold">
             Gọi ngay{' '}
-            <a
-              href={contact.hotlineHref}
-              className="text-accent hover:underline"
-            >
-              {contact.hotline}
-            </a>{' '}
+            <HotlineLinks
+              linkClassName="text-accent hover:underline"
+              separator=" hoặc "
+            />{' '}
             — báo giá miễn phí
           </p>
 
@@ -106,7 +104,10 @@ export function HeroSection() {
               </div>
               <div className="rounded-xl bg-accent px-4 py-2 text-white shadow-lg">
                 <p className="text-xs font-medium opacity-90">Hotline</p>
-                <p className="text-lg font-bold">{contact.hotline}</p>
+                <HotlineLinks
+                  layout="stack"
+                  linkClassName="text-base font-bold text-white hover:underline md:text-lg"
+                />
               </div>
             </div>
           </div>

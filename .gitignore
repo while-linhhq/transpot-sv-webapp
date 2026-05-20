@@ -1,0 +1,17 @@
+.trunk/
+.pnpm-store/
+
+# App lives in client/
+client/node_modules/
+client/.next/
+client/out/
+client/test-results/
+client/playwright-report/
+
+# Env
+client/.env
+client/.env.local
+client/.env.*.local
+
+*.log
+.DS_Store

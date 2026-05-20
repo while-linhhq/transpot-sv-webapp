@@ -18,10 +18,22 @@ export type ServiceItem = {
   icon: string;
 };
 
+export type Hotline = {
+  display: string;
+  href: string;
+};
+
+const hotlines: Hotline[] = [
+  { display: '0905.710.807', href: 'tel:+84905710807' },
+  { display: '0707.751.751', href: 'tel:+84707751751' },
+];
+
 export const siteProfile = {
   brand: {
     name: 'Taxi Tải Lê Đạt',
     shortName: 'Lê Đạt',
+    logoSrc: '/logo.jpg',
+    logoAlt: 'Taxi Tải Lê Đạt — Uy tín · An toàn · Nhanh chóng',
     tagline: 'Vận chuyển giá rẻ · 24/24 tại Đà Nẵng',
     description:
       'Chuyển nhà, chuyển trọ, chuyển văn phòng trọn gói, chuyển chung cư và hàng hóa — đội xe tải chuyên nghiệp, áo đồng phục vàng, phục vụ khắp Đà Nẵng.',
@@ -29,8 +41,9 @@ export const siteProfile = {
     priceTiers: ['120K', '200K', '250K'],
   },
   contact: {
-    hotline: '0905.710.807',
-    hotlineHref: 'tel:+84905710807',
+    hotlines,
+    hotline: hotlines[0].display,
+    hotlineHref: hotlines[0].href,
     zalo: '0905.710.807',
     zaloHref: 'https://zalo.me/0905710807',
     email: 'contact@vanchuyenledat.vn',

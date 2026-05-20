@@ -2,9 +2,8 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { siteProfile } from '@/config/site-profile';
+import { BrandLogo } from '@/components/usable/brand-logo';
 
 type GalleryImageCardProps = {
   src: string;
@@ -29,9 +28,8 @@ export function GalleryImageCard({
           featured && 'md:col-span-2 md:row-span-2'
         )}
       >
-        <Truck className="mb-2 h-10 w-10 opacity-80" />
+        <BrandLogo size="sm" className="mb-2 opacity-90" />
         <span className="text-sm font-semibold">{alt}</span>
-        <span className="mt-1 text-xs opacity-80">{siteProfile.brand.name}</span>
       </div>
     );
   }

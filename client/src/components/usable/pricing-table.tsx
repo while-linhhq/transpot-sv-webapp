@@ -1,4 +1,5 @@
 import { siteProfile } from '@/config/site-profile';
+import { HotlineLinks } from '@/components/usable/hotline-links';
 import { SectionHeading } from './section-heading';
 
 function DataTable({
@@ -122,12 +123,10 @@ export function PricingSection() {
 
         <p className="mt-6 text-center text-sm text-muted">
           Liên hệ hotline{' '}
-          <a
-            href={siteProfile.contact.hotlineHref}
-            className="font-semibold text-primary hover:underline"
-          >
-            {siteProfile.contact.hotline}
-          </a>{' '}
+          <HotlineLinks
+            linkClassName="font-semibold text-primary hover:underline"
+            separator=" hoặc "
+          />{' '}
           để được báo giá và khảo sát thực tế miễn phí.
         </p>
       </div>

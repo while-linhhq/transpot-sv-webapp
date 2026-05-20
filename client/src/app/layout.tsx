@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Be_Vietnam_Pro, Inter } from 'next/font/google';
 import { siteProfile } from '@/config/site-profile';
-import { Providers } from '@/components/providers';
 import './globals.css';
 
 const beVietnam = Be_Vietnam_Pro({
@@ -43,9 +42,7 @@ export default function RootLayout({
       lang="vi"
       className={`${beVietnam.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

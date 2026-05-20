@@ -1,7 +1,9 @@
 import Link from 'next/link';
-import { Mail, MapPin, Phone, Truck } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { siteProfile } from '@/config/site-profile';
 import { paths } from '@/router/paths';
+import { BrandLogo } from '@/components/usable/brand-logo';
+import { HotlineLinks } from '@/components/usable/hotline-links';
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -10,15 +12,16 @@ export function SiteFooter() {
     <footer className="border-t-4 border-brand-yellow bg-primary text-blue-50">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="mb-4 flex items-center gap-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-yellow text-primary">
-              <Truck className="h-5 w-5" />
-            </span>
-            <span className="text-lg font-bold text-white">{siteProfile.brand.name}</span>
+          <div className="mb-4">
+            <BrandLogo size="sm" className="brightness-110" />
           </div>
           <p className="text-sm text-blue-100">{siteProfile.brand.description}</p>
-          <p className="mt-3 text-sm font-bold text-brand-yellow">
-            Hotline: {siteProfile.contact.hotline}
+          <p className="mt-3 text-sm text-brand-yellow">
+            Hotline:{' '}
+            <HotlineLinks
+              linkClassName="text-brand-yellow hover:text-white"
+              separator=" | "
+            />
           </p>
         </div>
 
@@ -69,12 +72,10 @@ export function SiteFooter() {
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />
-              <a
-                href={siteProfile.contact.hotlineHref}
-                className="font-semibold text-white hover:text-brand-yellow"
-              >
-                {siteProfile.contact.hotline}
-              </a>
+              <HotlineLinks
+                layout="stack"
+                linkClassName="font-semibold text-white hover:text-brand-yellow"
+              />
             </li>
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />

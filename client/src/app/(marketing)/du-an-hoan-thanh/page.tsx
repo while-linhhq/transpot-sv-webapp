@@ -1,8 +1,6 @@
 import { ProjectsListView } from '@/features/projects/views/projects-list-view';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
-
 export const metadata: Metadata = {
   title: 'Dự án hoàn thành',
   description: 'Các dự án vận chuyển, chuyển nhà đã hoàn thành của Vận chuyển Lê Đạt',
