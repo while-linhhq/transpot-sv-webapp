@@ -1,0 +1,45 @@
+{
+  "eyebrow": "Rate card",
+  "title": "TRANSPARENT PRICING",
+  "updated": "Updated on {date} — No hidden fees, clear quote before execution.",
+  "innerCityTitle": "DA NANG INNER CITY — UNDER 30KM",
+  "interProvinceTitle": "INTER-PROVINCE — FROM 30KM/ONE WAY",
+  "innerCityNote": "Rates are calculated by actual distance and truck type. Transparent quote before loading.",
+  "interProvinceNote": "Applied for trips from 30km/one way. Round trips are optimized by actual route conditions.",
+  "footerPrefix": "Call hotline",
+  "footerSuffix": "for a free on-site survey and quote.",
+  "cta": {
+    "title": "FREE QUOTE IN 15 MINUTES",
+    "description": "Our consultants are available 24/7. On-site survey by request. All costs are shared clearly before contract signing.",
+    "button": "CALL NOW — {hotline}",
+    "benefits": {
+      "insurance": "100% cargo insurance",
+      "ontime": "On-time or refund",
+      "trained": "Well-trained staff",
+      "noHiddenFee": "No hidden fees"
+    }
+  },
+  "emptyCell": "—",
+  "innerHeaders": {
+    "vehicle": "VEHICLE",
+    "openPrice": "BASE FARE (FIRST 4 KM)",
+    "fromKm5": "FROM KM 5",
+    "interProvince": "INTER-PROVINCE",
+    "loadingTime": "LOADING TIME",
+    "waitingTime": "WAITING TIME"
+  },
+  "interHeaders": {
+    "vehicle": "VEHICLE",
+    "km40to100": "40–100 KM",
+    "km101Plus": "101 KM+",
+    "timeSurcharge": "TIME SURCHARGE",
+    "overnightFee": "OVERNIGHT FEE"
+  },
+  "vehicles": {
+    "vehicle500": "500kg truck",
+    "vehicle750": "750kg truck",
+    "vehicle15t": "1.5 ton truck",
+    "smallTruck": "SMALL TRUCK",
+    "largeTruck": "Large truck"
+  }
+}
