@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { siteProfile } from '@/config/site-profile';
+import { useTranslations } from 'next-intl';
+import { siteConfig } from '@/config/site-config';
 import { cn } from '@/lib/utils';
 
 const sizeMap = {
@@ -20,12 +21,13 @@ export function BrandLogo({
   className,
   priority = false,
 }: BrandLogoProps) {
+  const t = useTranslations('site');
   const { width, height, className: sizeClass } = sizeMap[size];
 
   return (
     <Image
-      src={siteProfile.brand.logoSrc}
-      alt={siteProfile.brand.logoAlt}
+      src={siteConfig.brand.logoSrc}
+      alt={t('brand.logoAlt')}
       width={width}
       height={height}
       priority={priority}
