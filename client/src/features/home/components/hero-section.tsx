@@ -1,118 +1,167 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, MessageCircle, Phone, Shield } from 'lucide-react';
-import { siteProfile } from '@/config/site-profile';
-import { siteAssets } from '@/config/site-assets';
+import { Link } from '@/i18n/navigation';
+import { siteConfig } from '@/config/site-config';
 import { paths } from '@/router/paths';
 import { Button } from '@/components/ui/button';
 import { BrandLogo } from '@/components/usable/brand-logo';
-import { HotlineLinks } from '@/components/usable/hotline-links';
+import { cn } from '@/lib/utils';
+
+const HERO_AUTO_ADVANCE_MS = 5_000;
+
+type HeroSlide = {
+  src: string;
+  objectPosition: string;
+};
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    src: '/file ảnh , video chuyển nhà/477571391_620893267365320_7131657903643879955_n.jpg',
+    objectPosition: '50% 40%',
+  },
+  {
+    src: '/images/875c0bc486e107bf5ef028.jpg',
+    objectPosition: '50% 60%',
+  },
+  {
+    src: '/file ảnh , video chuyển nhà/487552364_1855572948531580_1450942284952090609_n (1).jpg',
+    objectPosition: '50% 70%',
+  },
+  {
+    src: '/ảnh và video bổ sung/z7842892386435_69630d4b74ef30b400bd6fe000465bae.jpg',
+    objectPosition: '50% 52%',
+  },
+];
 
 export function HeroSection() {
-  const { brand, contact } = siteProfile;
+  const t = useTranslations('site');
+  const th = useTranslations('home.hero');
+  const tc = useTranslations('common');
+  const locale = useLocale();
+  const { contact } = siteConfig;
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    if (HERO_SLIDES.length <= 1) return;
+    const id = window.setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, HERO_AUTO_ADVANCE_MS);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const hotlineText = contact.hotlines.map((h) => h.display).join(
+    locale === 'vi' ? ' hoặc ' : ' or '
+  );
 
   return (
-    <section className="relative overflow-hidden bg-[#fffdf7]">
+    <section
+      className="relative isolate -mt-[122px] h-[100svh] overflow-hidden pt-[122px] sm:-mt-[114px] sm:pt-[114px] lg:-mt-[98px] lg:pt-[98px]"
+      aria-roledescription="carousel"
+      aria-label={th('carouselLabel')}
+    >
+      {HERO_SLIDES.map((slide, idx) => (
+        <Image
+          key={`${idx}-${slide.src}`}
+          src={slide.src}
+          alt={th('imageAlt')}
+          fill
+          className={cn(
+            'object-cover brightness-100 saturate-105 transition-opacity duration-700 ease-in-out',
+            idx === heroIndex ? 'z-10 opacity-100' : 'z-0 opacity-0',
+          )}
+          style={{ objectPosition: slide.objectPosition }}
+          sizes="100vw"
+          priority
+          loading="eager"
+        />
+      ))}
+      <div className="absolute inset-0 bg-slate-950/52" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/36 to-black/16" />
       <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand-yellow via-primary to-accent" />
 
-      <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-yellow/20 blur-3xl" />
-      <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
-
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
-        <div>
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-brand-yellow bg-brand-yellow/30 px-4 py-1.5 text-sm font-bold text-foreground shadow-sm">
-            <Shield className="h-4 w-4 text-primary" />
-            {brand.tagline}
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-4 py-10 sm:py-12 md:py-16 lg:py-20">
+        <div className="max-w-3xl rounded-2xl bg-transparent px-4 py-4 backdrop-blur-0 transition-all duration-300 hover:bg-black/20 hover:backdrop-blur-[2px] md:px-6 md:py-6 xl:max-w-4xl">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-yellow/80 bg-brand-yellow/25 px-4 py-1.5 text-base font-extrabold text-white shadow-sm backdrop-blur-sm [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+            <Shield className="h-4 w-4 text-brand-yellow" />
+            {t('brand.tagline')}
           </div>
 
           <BrandLogo size="xl" priority className="mb-5" />
-          <h1 className="sr-only">{brand.name}</h1>
+          <h1 className="sr-only">{t('brand.name')}</h1>
 
-          <p className="mt-4 text-lg leading-relaxed text-muted md:text-xl">
-            {brand.description}
+          <p className="mt-4 text-lg font-semibold leading-relaxed text-white/95 [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:text-xl md:text-2xl">
+            {t('brand.description')}
           </p>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            {brand.priceTiers.map((tier) => (
+            {siteConfig.brand.priceTiers.map((tier) => (
               <span
                 key={tier}
-                className="rounded-lg border border-primary/20 bg-white px-3 py-1 text-sm font-bold text-primary shadow-sm"
+                className="rounded-lg border border-white/35 bg-white/20 px-3 py-1 text-base font-extrabold text-white backdrop-blur-sm [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
               >
                 {tier}
               </span>
             ))}
-            <span className="rounded-lg bg-accent px-3 py-1 text-sm font-bold text-white shadow-sm">
-              Từ {brand.priceFrom}
+            <span className="rounded-lg bg-accent px-3 py-1 text-base font-extrabold text-white shadow-sm [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+              {t('brand.priceFromLabel', { price: siteConfig.brand.priceFrom })}
             </span>
           </div>
 
-          <p className="mt-4 text-base font-semibold">
-            Gọi ngay{' '}
-            <HotlineLinks
-              linkClassName="text-accent hover:underline"
-              separator=" hoặc "
-            />{' '}
-            — báo giá miễn phí
+          <p className="mt-4 text-lg font-extrabold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] md:text-xl">
+            {th('callPrompt', { hotlines: hotlineText })}
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={contact.hotlineHref}>
-              <Button size="lg" variant="accent" className="gap-2">
+          <div className="mt-7 flex flex-wrap gap-3 md:mt-8">
+            <a href={contact.hotlines[0].href}>
+              <Button size="lg" variant="accent" className="gap-2 text-lg font-extrabold">
                 <Phone className="h-5 w-5" />
-                Gọi báo giá
+                {tc('cta.callQuote')}
               </Button>
             </a>
-            <a
-              href={contact.zaloHref}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button size="lg" variant="yellow" className="gap-2">
+            <a href={contact.zaloHref} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="yellow" className="gap-2 text-lg font-extrabold">
                 <MessageCircle className="h-5 w-5" />
-                Chat Zalo
+                {tc('cta.zalo')}
               </Button>
             </a>
-            <Link href={paths.pricing}>
-              <Button size="lg" variant="outline" className="gap-2">
-                Bảng giá
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+            <Link
+              href={paths.pricing}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border-2 border-white/70 px-8 text-lg font-extrabold text-white transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]"
+            >
+              {tc('cta.pricing')}
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
 
-        <div className="relative">
-          <div className="absolute -inset-2 rounded-[1.75rem] bg-gradient-to-br from-brand-yellow via-primary to-accent opacity-90 blur-sm" />
-          <div className="relative overflow-hidden rounded-3xl border-4 border-brand-yellow shadow-2xl">
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={siteAssets.hero}
-                alt="Đội ngũ Taxi Tải Lê Đạt — vận chuyển Đà Nẵng"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-end justify-between gap-2 p-4 md:p-5">
-              <div className="rounded-xl bg-brand-yellow px-4 py-2 text-center shadow-lg">
-                <p className="text-xs font-bold uppercase tracking-wide text-primary">
-                  Phục vụ
-                </p>
-                <p className="text-2xl font-extrabold text-foreground">24/24</p>
-              </div>
-              <div className="rounded-xl bg-accent px-4 py-2 text-white shadow-lg">
-                <p className="text-xs font-medium opacity-90">Hotline</p>
-                <HotlineLinks
-                  layout="stack"
-                  linkClassName="text-base font-bold text-white hover:underline md:text-lg"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+
+      {HERO_SLIDES.length > 1 ? (
+        <div
+          className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2 sm:bottom-5 md:bottom-6"
+          role="tablist"
+          aria-label={th('carouselDotsLabel')}
+        >
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              role="tab"
+              aria-selected={idx === heroIndex}
+              aria-label={th('carouselGoToSlide', { n: idx + 1 })}
+              onClick={() => setHeroIndex(idx)}
+              className={cn(
+                'h-2.5 w-2.5 rounded-full ring-2 ring-white/80 transition-all',
+                idx === heroIndex ? 'scale-110 bg-white' : 'bg-white/45 hover:bg-white/70',
+              )}
+            />
+          ))}
+        </div>
+      ) : null}
     </section>
   );
 }
