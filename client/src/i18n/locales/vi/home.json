@@ -1,0 +1,94 @@
+{
+  "hero": {
+    "callPrompt": "Gọi ngay {hotlines} — báo giá miễn phí",
+    "imageAlt": "Đội ngũ Taxi Tải Lê Đạt — vận chuyển Đà Nẵng",
+    "carouselLabel": "Ảnh giới thiệu trang chủ",
+    "carouselDotsLabel": "Chọn ảnh hiển thị",
+    "carouselGoToSlide": "Hiển thị ảnh {n}",
+    "available247": "24/24"
+  },
+  "marquee": {
+    "items": [
+      "Bảo hiểm 100%",
+      "Đúng giờ đúng hẹn",
+      "Đội ngũ chuyên nghiệp thân thiện",
+      "Không phí ẩn"
+    ]
+  },
+  "services": {
+    "eyebrow": "Dịch vụ",
+    "title": "GIẢI PHÁP VẬN CHUYỂN",
+    "description": "Từ phòng trọ đến biệt thự, từ nội thành đến liên tỉnh — chúng tôi có giải pháp phù hợp cho mọi nhu cầu di chuyển.",
+    "viewDetail": "Xem chi tiết"
+  },
+  "usp": {
+    "eyebrow": "Cam kết",
+    "title": "TẠI SAO CHỌN LÊ ĐẠT?",
+    "description": "Đem lại giải pháp vận chuyển tối ưu — giá rẻ, nhanh, an toàn tại Đà Nẵng",
+    "imageAlt": "Nhân viên Taxi Tải Lê Đạt"
+  },
+  "process": {
+    "eyebrow": "Quy trình",
+    "title": "QUY TRÌNH CHUYỂN NHÀ TRỌN GÓI",
+    "packingEyebrow": "Đóng gói",
+    "packingTitle": "QUY TRÌNH ĐÓNG GÓI ĐỒ ĐẠC"
+  },
+  "gallery": {
+    "eyebrow": "Thực tế",
+    "title": "HÌNH ẢNH THỰC TẾ",
+    "description": "Tổng hợp ảnh và video thực tế từ các chuyến vận chuyển, chuyển nhà, chuyển trọ và chuyển văn phòng.",
+    "alts": [
+      "Đội ngũ Lê Đạt tại hiện trường",
+      "Chuyển nhà trọn gói",
+      "Bốc xếp chuyên nghiệp",
+      "Chuyển văn phòng",
+      "Vận chuyển hàng hóa",
+      "Xe tải Đà Nẵng",
+      "Đóng gói an toàn",
+      "Chuyển chung cư",
+      "Dịch vụ 24/24",
+      "Đồng phục vàng — uy tín",
+      "Hàng hóa cồng kềnh",
+      "Khách hàng hài lòng"
+    ],
+    "fallbackAlt": "Dự án vận chuyển {index}",
+    "viewAll": "Xem thêm ảnh và video"
+  },
+  "projectsTeaser": {
+    "eyebrow": "Dự án",
+    "title": "DỰ ÁN HOÀN THÀNH",
+    "description": "Một số dự án vận chuyển tiêu biểu gần đây",
+    "empty": "Hình ảnh dự án sẽ được cập nhật sớm.",
+    "viewAll": "Xem trang dự án"
+  },
+  "testimonials": {
+    "eyebrow": "Đánh giá",
+    "title": "KHÁCH HÀNG NÓI GÌ VỀ LÊ ĐẠT",
+    "description": "Một số phản hồi thực tế sau khi sử dụng dịch vụ vận chuyển của chúng tôi",
+    "items": [
+      {
+        "image": "/đánh giá khách hàng/z7842896030839_42ae64b2a10aa7ab4e52db2f259d9952.jpg",
+        "name": "Phương Linh",
+        "location": "Thanh Khê, Đà Nẵng",
+        "content": "Đội ngũ đến đúng giờ, làm việc nhanh và cẩn thận. Đồ đạc được bọc kỹ, chuyển xong không thất lạc gì."
+      },
+      {
+        "image": "/đánh giá khách hàng/z7842896122161_a26c2b847d62f0e60b22bd9bfca753b3.jpg",
+        "name": "Mỹ Linh",
+        "location": "Hải Châu, Đà Nẵng",
+        "content": "Báo giá rõ ràng từ đầu, không phát sinh phí. Nhân viên thân thiện, hỗ trợ cả phần tháo lắp rất chuyên nghiệp."
+      },
+      {
+        "image": "/đánh giá khách hàng/z7842896213196_e2cad61a21a342c5c6e779e97fcaf1ee.jpg",
+        "name": "Lê Hàn Ny",
+        "location": "Liên Chiểu, Đà Nẵng",
+        "content": "Mình chuyển phòng trọ cuối tuần, gọi là có xe ngay. Thao tác gọn, nhanh, giá hợp lý và tư vấn rất nhiệt tình."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Liên hệ",
+    "title": "LIÊN HỆ ĐẶT DỊCH VỤ GIÁ ƯU ĐÃI",
+    "description": "Quý khách muốn chuyển hàng, chuyển nhà, văn phòng hãy liên hệ ngay"
+  }
+}
