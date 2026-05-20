@@ -1,0 +1,25 @@
+{
+  "page": {
+    "eyebrow": "Thư viện",
+    "title": "Hình ảnh thực tế"
+  },
+  "list": {
+    "eyebrow": "Thư viện media",
+    "title": "TOÀN BỘ ẢNH & VIDEO THỰC TẾ",
+    "description": "Tổng hợp đầy đủ ảnh và video từ các chuyến vận chuyển, chuyển nhà, chuyển trọ và chuyển văn phòng.",
+    "empty": "Chưa có nội dung phù hợp với bộ lọc này.",
+    "filters": {
+      "all": "Tất cả",
+      "image": "Ảnh",
+      "video": "Video"
+    },
+    "folderFilters": {
+      "all": "Mọi thư mục"
+    },
+    "imageAlt": "Hình ảnh thực tế {index}"
+  },
+  "meta": {
+    "title": "Hình ảnh thực tế",
+    "description": "Thư viện ảnh và video thực tế của Vận chuyển Lê Đạt"
+  }
+}
