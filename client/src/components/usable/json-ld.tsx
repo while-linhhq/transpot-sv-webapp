@@ -1,24 +1,26 @@
-import { siteProfile } from '@/config/site-profile';
+import { getTranslations } from 'next-intl/server';
+import { siteConfig } from '@/config/site-config';
 
-export function LocalBusinessJsonLd() {
+export async function LocalBusinessJsonLd() {
+  const t = await getTranslations('site');
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MovingCompany',
-    name: siteProfile.brand.name,
-    image: `${siteUrl}${siteProfile.brand.logoSrc}`,
-    logo: `${siteUrl}${siteProfile.brand.logoSrc}`,
-    description: siteProfile.brand.description,
-    telephone: siteProfile.contact.hotlines.map((line) => line.display),
-    email: siteProfile.contact.email,
+    name: t('brand.name'),
+    image: `${siteUrl}${siteConfig.brand.logoSrc}`,
+    logo: `${siteUrl}${siteConfig.brand.logoSrc}`,
+    description: t('brand.description'),
+    telephone: siteConfig.contact.hotlines.map((line) => line.display),
+    email: siteConfig.contact.email,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Đà Nẵng',
+      addressLocality: t('jsonLd.addressLocality'),
       addressCountry: 'VN',
-      streetAddress: siteProfile.contact.address,
+      streetAddress: t('contact.address'),
     },
-    areaServed: 'Đà Nẵng và các tỉnh lân cận',
+    areaServed: t('jsonLd.areaServed'),
     priceRange: '$$',
   };
 
