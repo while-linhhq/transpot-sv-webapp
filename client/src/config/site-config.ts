@@ -32,7 +32,7 @@ export const siteConfig = {
       'https://maps.google.com/maps?q=S%E1%BB%91%2010%20Ph%C3%BAc%20%C4%90%C3%A1n%2C%20ph%C6%B0%E1%BB%9Dng%20Thanh%20Kh%C3%AA%2C%20th%C3%A0nh%20ph%E1%BB%91%20%C4%90%C3%A0%20N%E1%BA%B5ng%2C%20Vi%E1%BB%87t%20Nam&hl=vi&z=17&output=embed',
   },
   pricing: {
-    updatedAt: '2020-02-14',
+    updatedAt: '2026-05-10',
     innerCity: [
       {
         vehicleKey: 'vehicle500',
