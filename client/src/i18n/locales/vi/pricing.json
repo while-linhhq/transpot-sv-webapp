@@ -1,0 +1,45 @@
+{
+  "eyebrow": "Bảng giá cước",
+  "title": "GIÁ MINH BẠCH",
+  "updated": "Cập nhật ngày {date} — Không phụ phí ẩn, báo giá trước khi thực hiện.",
+  "innerCityTitle": "NỘI THÀNH ĐÀ NẴNG — DƯỚI 30KM",
+  "interProvinceTitle": "NGOẠI TỈNH — TỪ 30KM/CHIỀU TRỞ LÊN",
+  "innerCityNote": "Giá cước tính theo quãng đường thực tế và loại xe. Báo giá rõ ràng trước khi bốc xếp.",
+  "interProvinceNote": "Áp dụng cho tuyến từ 30km/chiều. Hành trình khứ hồi được tối ưu chi phí theo lộ trình thực tế.",
+  "footerPrefix": "Liên hệ hotline",
+  "footerSuffix": "để được báo giá và khảo sát thực tế miễn phí.",
+  "cta": {
+    "title": "BÁO GIÁ MIỄN PHÍ TRONG 15 PHÚT",
+    "description": "Đội ngũ tư vấn sẵn sàng 24/7. Khảo sát tận nơi theo yêu cầu. Mọi chi phí được thông báo đầy đủ trước khi ký hợp đồng.",
+    "button": "GỌI TƯ VẤN NGAY — {hotline}",
+    "benefits": {
+      "insurance": "Bảo hiểm hàng hóa 100%",
+      "ontime": "Đúng hẹn hoặc hoàn tiền",
+      "trained": "Nhân viên được đào tạo bài bản",
+      "noHiddenFee": "Không phát sinh chi phí ẩn"
+    }
+  },
+  "emptyCell": "—",
+  "innerHeaders": {
+    "vehicle": "LOẠI XE",
+    "openPrice": "GIÁ MỞ CỬA (4 KM ĐẦU)",
+    "fromKm5": "TỪ KM THỨ 5",
+    "interProvince": "ĐI TỈNH",
+    "loadingTime": "THỜI GIAN BỐC HÀNG",
+    "waitingTime": "THỜI GIAN CHỜ"
+  },
+  "interHeaders": {
+    "vehicle": "LOẠI XE",
+    "km40to100": "40Km – 100Km",
+    "km101Plus": "101Km TRỞ LÊN",
+    "timeSurcharge": "PHỤ TRỘI THỜI GIAN",
+    "overnightFee": "TIỀN LƯU ĐÊM"
+  },
+  "vehicles": {
+    "vehicle500": "Xe 500kg",
+    "vehicle750": "Xe 750kg",
+    "vehicle15t": "Xe 1.5 tấn",
+    "smallTruck": "XE NHỎ",
+    "largeTruck": "Xe lớn"
+  }
+}
