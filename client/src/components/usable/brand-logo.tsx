@@ -7,7 +7,11 @@ const sizeMap = {
   sm: { width: 140, height: 48, className: 'h-10 w-auto max-w-[140px]' },
   md: { width: 180, height: 62, className: 'h-12 w-auto max-w-[180px]' },
   lg: { width: 240, height: 82, className: 'h-16 w-auto max-w-[240px]' },
-  xl: { width: 320, height: 110, className: 'h-24 w-auto max-w-[min(100%,320px)] md:h-28' },
+  xl: {
+    width: 320,
+    height: 110,
+    className: 'h-24 w-auto max-w-[min(100%,320px)] md:h-28',
+  },
 } as const;
 
 type BrandLogoProps = {

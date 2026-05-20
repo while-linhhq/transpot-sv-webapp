@@ -7,4 +7,6 @@ export const routing = defineRouting({
   locales,
   defaultLocale: 'vi',
   localePrefix: 'as-needed',
+  // Always serve Vietnamese at `/` unless user picks `/en` or uses locale switcher
+  localeDetection: false,
 });

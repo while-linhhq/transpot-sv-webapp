@@ -24,7 +24,8 @@
     "taxCode": "Tax ID",
     "serving": "Available",
     "map": "Map",
-    "menu": "Menu"
+    "menu": "Menu",
+    "swipeHint": "Swipe sideways to see more"
   },
   "footer": {
     "copyright": "© {year} {brand}. All rights reserved."

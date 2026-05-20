@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { isGalleryImageUnoptimized } from '@/lib/gallery-media';
 import { BrandLogo } from '@/components/usable/brand-logo';
 
 type GalleryImageCardProps = {
@@ -53,6 +54,7 @@ export function GalleryImageCard({
             ? '(max-width: 768px) 100vw, 66vw'
             : '(max-width: 768px) 50vw, 33vw'
         }
+        unoptimized={isGalleryImageUnoptimized(src)}
         onError={() => setFailed(true)}
       />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent p-3 pt-10">

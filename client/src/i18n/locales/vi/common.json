@@ -24,7 +24,8 @@
     "taxCode": "MST",
     "serving": "Phục vụ",
     "map": "Bản đồ",
-    "menu": "Menu"
+    "menu": "Menu",
+    "swipeHint": "Vuốt ngang để xem thêm"
   },
   "footer": {
     "copyright": "© {year} {brand}. All rights reserved."

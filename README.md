@@ -12,6 +12,12 @@ Mở http://localhost:3000
 
 Ảnh/video: `client/public/images/`, `client/public/videos/`
 
+## Deploy (GitHub Actions → Vercel)
+
+Push lên GitHub → tự **lint, build, deploy** (nhánh `main` = production, nhánh khác = preview).
+
+Hướng dẫn cấu hình secrets Vercel + GitHub: **[docs/DEPLOY.md](docs/DEPLOY.md)**.
+
 ## i18n (tiếng Việt / English)
 
 - **Tiếng Việt (mặc định):** không prefix — `/`, `/dich-vu/...`, `/en` cho English.

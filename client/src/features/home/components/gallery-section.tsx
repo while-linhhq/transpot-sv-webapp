@@ -1,59 +1,54 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { siteAssets } from '@/config/site-assets';
 import { paths } from '@/router/paths';
+import { GalleryMediaTile } from '@/components/usable/gallery-media-tile';
 import { SectionHeading } from '@/components/usable/section-heading';
 
 export function GallerySection() {
   const th = useTranslations('home.gallery');
   const captions = th.raw('alts') as string[];
   const featuredMedia = siteAssets.galleryMedia.slice(0, 12);
+  const featuredMediaMobile = featuredMedia.slice(0, 8);
 
   return (
-    <section className="bg-gradient-to-b from-amber-50/80 to-background pt-8 pb-8 md:pt-10 md:pb-10">
-      <div className="mx-auto max-w-7xl px-4">
+    <section className="bg-gradient-to-b from-amber-50/80 to-background py-4 max-md:py-3 sm:py-10">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4">
         <SectionHeading
           eyebrow={th('eyebrow')}
           title={th('title')}
           description={th('description')}
-          className="mb-6 md:mb-8"
+          className="mb-4 max-md:mb-3 md:mb-8"
         />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-          {featuredMedia.map((media, index) => (
-            <article
+
+        <div className="grid grid-cols-4 gap-1 md:hidden">
+          {featuredMediaMobile.map((media, index) => (
+            <GalleryMediaTile
               key={`${media.src}-${index}`}
-              className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
-            >
-              <div className="relative aspect-[3/4] bg-slate-100">
-                {media.type === 'video' ? (
-                  <video
-                    src={media.src}
-                    className="h-full w-full object-cover"
-                    controls
-                    preload="metadata"
-                    playsInline
-                    muted
-                  />
-                ) : (
-                  <Image
-                    src={media.src}
-                    alt={captions[index] ?? th('fallbackAlt', { index: index + 1 })}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  />
-                )}
-              </div>
-            </article>
+              media={media}
+              alt={captions[index] ?? th('fallbackAlt', { index: index + 1 })}
+              sizes="25vw"
+            />
           ))}
         </div>
-        <div className="mt-8 text-center">
+
+        <div className="hidden grid-cols-3 gap-3 md:grid lg:grid-cols-4 lg:gap-4">
+          {featuredMedia.map((media, index) => (
+            <GalleryMediaTile
+              key={`${media.src}-${index}`}
+              media={media}
+              alt={captions[index] ?? th('fallbackAlt', { index: index + 1 })}
+              sizes="(max-width: 1024px) 33vw, 25vw"
+            />
+          ))}
+        </div>
+
+        <div className="mt-4 text-center max-md:mt-3 sm:mt-8">
           <Link
             href={paths.projects}
-            className="inline-flex items-center justify-center rounded-xl border-2 border-primary px-6 py-3 text-sm font-bold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-white"
+            className="inline-flex min-h-9 w-full items-center justify-center rounded-lg border-2 border-primary px-4 py-2 text-xs font-bold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-white max-md:max-w-xs sm:min-h-11 sm:w-auto sm:rounded-xl sm:px-6 sm:py-3 sm:text-sm"
           >
             {th('viewAll')}
           </Link>

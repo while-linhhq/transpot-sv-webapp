@@ -3,7 +3,15 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
+const tunnelOrigin = process.env.DEV_TUNNEL_HOST?.trim();
+
 const nextConfig: NextConfig = {
+  // Required when accessing `pnpm dev` via Cloudflare Tunnel / custom dev hostname
+  allowedDevOrigins: [
+    'dev.taxitaithanhdat.com',
+    '*.trycloudflare.com',
+    ...(tunnelOrigin ? [tunnelOrigin] : []),
+  ],
   images: {
     remotePatterns: [],
   },

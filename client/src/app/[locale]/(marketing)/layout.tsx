@@ -12,7 +12,7 @@ export default function MarketingLayout({
     <>
       <LocalBusinessJsonLd />
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-20 max-md:pb-[4.5rem] lg:pb-0">{children}</main>
       <SiteFooter />
       <FloatingCta />
     </>

@@ -16,14 +16,16 @@ export function ServiceDetailView({ service }: { service: ServiceContent }) {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-slate-950 via-[#102a61] to-primary-dark py-16 text-white shadow-inner md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+      <section className="bg-gradient-to-br from-slate-950 via-[#102a61] to-primary-dark py-12 text-white shadow-inner sm:py-16 md:py-20">
+        <div className="mx-auto grid max-w-7xl gap-6 px-3 sm:gap-8 sm:px-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
           <div>
-            <p className="mb-2 text-sm font-semibold tracking-wide text-amber-200/95">
+            <p className="mb-2 text-xs font-semibold tracking-wide text-amber-200/95 sm:text-sm">
               {t('breadcrumb')}
             </p>
-            <h1 className="text-4xl font-extrabold md:text-6xl">{service.title}</h1>
-            <p className="mt-4 max-w-3xl text-xl font-semibold text-slate-100 md:text-2xl">
+            <h1 className="text-2xl font-extrabold sm:text-3xl md:text-4xl lg:text-6xl">
+              {service.title}
+            </h1>
+            <p className="mt-3 max-w-3xl text-base font-semibold text-slate-100 sm:mt-4 sm:text-xl md:text-2xl">
               {service.heroDescription}
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -36,8 +38,8 @@ export function ServiceDetailView({ service }: { service: ServiceContent }) {
                 </span>
               ))}
             </div>
-            <a href={siteConfig.contact.hotlines[0].href} className="mt-7 inline-block">
-              <Button variant="accent" size="lg" className="gap-2">
+            <a href={siteConfig.contact.hotlines[0].href} className="mt-6 block w-full sm:mt-7 sm:inline-block sm:w-auto">
+              <Button variant="accent" size="lg" className="h-12 w-full gap-2 sm:w-auto">
                 <Phone className="h-5 w-5" />
                 {t('contactQuote')}
               </Button>
@@ -60,8 +62,8 @@ export function ServiceDetailView({ service }: { service: ServiceContent }) {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-4">
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4">
           <SectionHeading title={t('overviewTitle')} align="left" />
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
             <div className="space-y-4 rounded-2xl border-2 border-slate-200 bg-surface p-5 shadow-sm md:p-6">
@@ -118,8 +120,8 @@ export function ServiceDetailView({ service }: { service: ServiceContent }) {
         </div>
       </section>
 
-      <section className="bg-slate-200/80 py-14 md:py-16">
-        <div className="mx-auto max-w-7xl px-4">
+      <section className="bg-slate-200/80 py-10 sm:py-14 md:py-16">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4">
           <div className="space-y-10 rounded-2xl border-2 border-slate-300 bg-white p-5 shadow-md md:p-7">
             <div>
               <SectionHeading title={t('benefits')} align="left" className="mb-6" />
@@ -182,7 +184,7 @@ export function ServiceDetailView({ service }: { service: ServiceContent }) {
       </section>
 
       <section className="border-t-2 border-slate-200 bg-gradient-to-b from-amber-100 to-amber-50 py-12">
-        <div className="mx-auto max-w-7xl px-4 text-center">
+        <div className="mx-auto max-w-7xl px-3 text-center sm:px-4">
           <p className="mb-4 text-xl font-bold">
             {t('ctaTitle', { service: service.title })}
           </p>
