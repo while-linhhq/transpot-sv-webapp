@@ -1,0 +1,107 @@
+{
+  "brand": {
+    "name": "Taxi Tải Lê Đạt",
+    "shortName": "Lê Đạt",
+    "logoAlt": "Taxi Tải Lê Đạt — Uy tín · An toàn · Nhanh chóng",
+    "tagline": "Vận chuyển giá rẻ · 24/24 tại Đà Nẵng",
+    "description": "Chuyển nhà, chuyển trọ, chuyển văn phòng trọn gói, chuyển chung cư và hàng hóa — đội xe tải chuyên nghiệp, áo đồng phục vàng, phục vụ khắp Đà Nẵng.",
+    "priceFromLabel": "Từ {price}"
+  },
+  "contact": {
+    "address": "Số 10 Phúc Đán, phường Thanh Khê, thành phố Đà Nẵng",
+    "workingHours": "24/24 — Gọi bất cứ lúc nào"
+  },
+  "services": {
+    "chuyen-nha-tron-goi": {
+      "title": "Chuyển nhà trọn gói",
+      "shortDescription": "Đóng gói, bốc xếp, vận chuyển và sắp xếp tại nhà mới. Đảm bảo an toàn tuyệt đối cho từng món đồ."
+    },
+    "chuyen-van-phong": {
+      "title": "Chuyển văn phòng",
+      "shortDescription": "Lập kế hoạch chi tiết, thi công nhanh gọn, hạn chế gián đoạn hoạt động kinh doanh."
+    },
+    "chuyen-hang-hoa": {
+      "title": "Chuyển hàng hóa",
+      "shortDescription": "Nhận hàng lẻ, hàng cồng kềnh, hàng giá trị. Đóng gói kỹ, giao đúng hẹn, đúng nơi."
+    },
+    "chuyen-phong-tro": {
+      "title": "Phòng trọ & chung cư",
+      "shortDescription": "Xe nhỏ linh hoạt vào kiệt hẻm, xử lý thang máy và khung giờ tòa nhà chuyên nghiệp."
+    },
+    "di-doi-nha-xuong": {
+      "title": "Vận chuyển liên tỉnh",
+      "shortDescription": "Phủ tuyến Bắc - Trung - Nam, theo dõi hành trình rõ ràng, tối ưu chi phí đường dài."
+    },
+    "chuyen-chung-cu": {
+      "title": "Kho lưu trữ tạm thời",
+      "shortDescription": "Lưu kho an toàn ngắn hạn với quy trình kiểm soát rõ ràng, xuất/nhập linh hoạt theo lịch khách."
+    }
+  },
+  "serviceDefaults": {
+    "benefits": [
+      "Khảo sát và báo giá miễn phí tại nhà",
+      "Đóng gói, bọc lót chuyên nghiệp",
+      "Tháo lắp, vận chuyển an toàn",
+      "Cam kết không phát sinh chi phí"
+    ],
+    "process": [
+      "Tiếp nhận yêu cầu và tư vấn",
+      "Khảo sát, báo giá chi tiết",
+      "Ký hợp đồng và triển khai",
+      "Nghiệm thu và bàn giao"
+    ],
+    "faqPriceQ": "Giá {service} bao nhiêu?",
+    "faqPriceA": "Giá phụ thuộc khối lượng, khoảng cách và thời gian. Liên hệ hotline để được khảo sát miễn phí.",
+    "faqCompensationQ": "Có cam kết bồi thường không?",
+    "faqCompensationA": "Chúng tôi cam kết đền bù 100% nếu có hư hại do lỗi vận chuyển."
+  },
+  "usp": [
+    "Cam kết không có chi phí phát sinh",
+    "Đền bù 100% giá trị đồ đạc nếu hư hại, thất thoát",
+    "Miễn phí trang bị, thiết bị đóng gói",
+    "Tư vấn, tiếp nhận yêu cầu tận tình, chu đáo",
+    "Nhân viên đóng gói cẩn trọng, bao lót tỉ mỉ",
+    "Nhân viên vận chuyển khỏe, nhanh nhẹn",
+    "Tài xế thông thạo đường xá, cẩn trọng"
+  ],
+  "processSteps": [
+    {
+      "title": "Tiếp nhận thông tin",
+      "description": "Xác nhận tên, số điện thoại, địa chỉ và yêu cầu chuyển đồ để tiện liên hệ."
+    },
+    {
+      "title": "Khảo sát & báo giá",
+      "description": "Nhân viên khảo sát tài sản, tư vấn phương án và báo giá ưu đãi."
+    },
+    {
+      "title": "Ký kết hợp đồng",
+      "description": "Thống nhất phương án vận chuyển và ký hợp đồng triển khai."
+    },
+    {
+      "title": "Thực hiện vận chuyển",
+      "description": "Tháo dỡ, đóng gói, vận chuyển và lắp đặt tại điểm mới theo hợp đồng."
+    },
+    {
+      "title": "Nghiệm thu & thanh toán",
+      "description": "Kiểm tra tài sản, ký thanh lý hợp đồng và thanh toán."
+    }
+  ],
+  "packingSteps": [
+    {
+      "title": "Đối với đồ dễ vỡ",
+      "content": "Dùng túi xốp hơi bọc quanh sản phẩm, bọc kín các góc cạnh. Tách riêng vật nhỏ, chèn vải mềm ở góc thùng để tránh va đập khi vận chuyển."
+    },
+    {
+      "title": "Đối với đồ điện tử",
+      "content": "Sử dụng PE hoặc túi xốp Bubble bọc quanh sản phẩm, cố định bằng băng keo rồi đặt vào thùng carton."
+    },
+    {
+      "title": "Các đồ khác",
+      "content": "Tranh ảnh, bản đồ cuộn tròn bằng ống bìa cứng, bịt kín hai đầu bằng băng dính hoặc dây nilon."
+    }
+  ],
+  "jsonLd": {
+    "areaServed": "Đà Nẵng và các tỉnh lân cận",
+    "addressLocality": "Đà Nẵng"
+  }
+}
