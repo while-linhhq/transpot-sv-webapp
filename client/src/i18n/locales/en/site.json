@@ -1,0 +1,107 @@
+{
+  "brand": {
+    "name": "Le Dat Moving & Transport",
+    "shortName": "Le Dat",
+    "logoAlt": "Le Dat Transport — Trusted · Safe · Fast",
+    "tagline": "Affordable moving · 24/7 in Da Nang",
+    "description": "House moving, office relocation, apartment moves and cargo — professional truck fleet with yellow uniforms, serving all of Da Nang.",
+    "priceFromLabel": "From {price}"
+  },
+  "contact": {
+    "address": "10 Phuc Dan Street, Thanh Khe Ward, Da Nang City, Vietnam",
+    "workingHours": "24/7 — Call anytime"
+  },
+  "services": {
+    "chuyen-nha-tron-goi": {
+      "title": "Full house moving",
+      "shortDescription": "Safe, affordable full-service house moving in Da Nang."
+    },
+    "chuyen-van-phong": {
+      "title": "Office relocation",
+      "shortDescription": "Full office moves with minimal business disruption."
+    },
+    "chuyen-hang-hoa": {
+      "title": "Cargo transport",
+      "shortDescription": "Fast, 100% safe cargo delivery."
+    },
+    "chuyen-phong-tro": {
+      "title": "Room / dorm moving",
+      "shortDescription": "Student-friendly room moves — quick and budget-friendly."
+    },
+    "di-doi-nha-xuong": {
+      "title": "Factory & warehouse relocation",
+      "shortDescription": "Safe, professional factory and warehouse moves."
+    },
+    "chuyen-chung-cu": {
+      "title": "Apartment moving",
+      "shortDescription": "High-rise apartment moves — disassembly, transport & setup."
+    }
+  },
+  "serviceDefaults": {
+    "benefits": [
+      "Free on-site survey and quote",
+      "Professional packing and padding",
+      "Safe disassembly, transport and setup",
+      "No hidden extra charges"
+    ],
+    "process": [
+      "Receive request and consult",
+      "Survey and detailed quote",
+      "Sign contract and execute",
+      "Handover and payment"
+    ],
+    "faqPriceQ": "How much does {service} cost?",
+    "faqPriceA": "Price depends on volume, distance and timing. Call our hotline for a free survey.",
+    "faqCompensationQ": "Is there damage compensation?",
+    "faqCompensationA": "We commit to 100% compensation for transport-related damage."
+  },
+  "usp": [
+    "No hidden extra fees",
+    "100% compensation for damage or loss",
+    "Free packing materials and equipment",
+    "Dedicated, attentive consultation",
+    "Careful packing and padding",
+    "Strong, efficient moving crew",
+    "Experienced, careful drivers"
+  ],
+  "processSteps": [
+    {
+      "title": "Receive information",
+      "description": "Confirm name, phone, address and moving requirements for follow-up."
+    },
+    {
+      "title": "Survey & quote",
+      "description": "On-site survey, plan consultation and competitive quote."
+    },
+    {
+      "title": "Sign contract",
+      "description": "Agree on the moving plan and sign the service contract."
+    },
+    {
+      "title": "Execute move",
+      "description": "Disassembly, packing, transport and setup at the new location."
+    },
+    {
+      "title": "Handover & payment",
+      "description": "Inspect belongings, sign completion and settle payment."
+    }
+  ],
+  "packingSteps": [
+    {
+      "title": "Fragile items",
+      "content": "Wrap with bubble wrap, secure corners. Separate small items and pad box corners to prevent impact."
+    },
+    {
+      "title": "Electronics",
+      "content": "Use PE or bubble wrap, secure with tape, then place in carton boxes."
+    },
+    {
+      "title": "Other items",
+      "content": "Roll paintings and maps in hard tubes, seal both ends with tape or nylon cord."
+    }
+  ],
+  "jsonLd": {
+    "areaServed": "Da Nang and neighboring provinces",
+    "addressLocality": "Da Nang"
+  }
+}
