@@ -1,41 +1,62 @@
-import { siteAssets } from '@/config/site-assets';
-import { SectionHeading } from '@/components/usable/section-heading';
-import { GalleryImageCard } from '@/components/usable/gallery-image-card';
+'use client';
 
-const captions = [
-  'Đội ngũ Lê Đạt tại hiện trường',
-  'Chuyển nhà trọn gói',
-  'Bốc xếp chuyên nghiệp',
-  'Chuyển văn phòng',
-  'Vận chuyển hàng hóa',
-  'Xe tải Đà Nẵng',
-  'Đóng gói an toàn',
-  'Chuyển chung cư',
-  'Dịch vụ 24/24',
-  'Đồng phục vàng — uy tín',
-  'Hàng hóa cồng kềnh',
-  'Khách hàng hài lòng',
-];
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import { siteAssets } from '@/config/site-assets';
+import { paths } from '@/router/paths';
+import { SectionHeading } from '@/components/usable/section-heading';
 
 export function GallerySection() {
+  const th = useTranslations('home.gallery');
+  const captions = th.raw('alts') as string[];
+  const featuredMedia = siteAssets.galleryMedia.slice(0, 12);
+
   return (
-    <section className="bg-gradient-to-b from-amber-50/80 to-background py-16 md:py-24">
+    <section className="bg-gradient-to-b from-amber-50/80 to-background pt-8 pb-8 md:pt-10 md:pb-10">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
-          eyebrow="Thực tế"
-          title="HÌNH ẢNH THỰC TẾ"
-          description="Ảnh chụp từ các chuyến vận chuyển, chuyển nhà và chuyển văn phòng của Taxi Tải Lê Đạt"
+          eyebrow={th('eyebrow')}
+          title={th('title')}
+          description={th('description')}
+          className="mb-6 md:mb-8"
         />
-        <div className="grid auto-rows-[140px] grid-cols-2 gap-3 md:auto-rows-[180px] md:grid-cols-4 md:gap-4">
-          {siteAssets.gallery.map((src, index) => (
-            <GalleryImageCard
-              key={`${src}-${index}`}
-              src={src}
-              alt={captions[index] ?? `Dự án vận chuyển ${index + 1}`}
-              index={index}
-              featured={index === 0}
-            />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
+          {featuredMedia.map((media, index) => (
+            <article
+              key={`${media.src}-${index}`}
+              className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
+            >
+              <div className="relative aspect-[3/4] bg-slate-100">
+                {media.type === 'video' ? (
+                  <video
+                    src={media.src}
+                    className="h-full w-full object-cover"
+                    controls
+                    preload="metadata"
+                    playsInline
+                    muted
+                  />
+                ) : (
+                  <Image
+                    src={media.src}
+                    alt={captions[index] ?? th('fallbackAlt', { index: index + 1 })}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                )}
+              </div>
+            </article>
           ))}
+        </div>
+        <div className="mt-8 text-center">
+          <Link
+            href={paths.projects}
+            className="inline-flex items-center justify-center rounded-xl border-2 border-primary px-6 py-3 text-sm font-bold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-white"
+          >
+            {th('viewAll')}
+          </Link>
         </div>
       </div>
     </section>
