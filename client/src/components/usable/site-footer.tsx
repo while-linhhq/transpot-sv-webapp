@@ -1,11 +1,14 @@
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { siteProfile } from '@/config/site-profile';
+import { Link } from '@/i18n/navigation';
+import { SERVICE_SLUGS, siteConfig } from '@/config/site-config';
 import { paths } from '@/router/paths';
 import { BrandLogo } from '@/components/usable/brand-logo';
 import { HotlineLinks } from '@/components/usable/hotline-links';
 
 export function SiteFooter() {
+  const t = useTranslations('common');
+  const ts = useTranslations('site');
   const year = new Date().getFullYear();
 
   return (
@@ -15,26 +18,26 @@ export function SiteFooter() {
           <div className="mb-4">
             <BrandLogo size="sm" className="brightness-110" />
           </div>
-          <p className="text-sm text-blue-100">{siteProfile.brand.description}</p>
+          <p className="text-sm text-blue-100">{ts('brand.description')}</p>
           <p className="mt-3 text-sm text-brand-yellow">
-            Hotline:{' '}
+            {t('labels.hotline')}:{' '}
             <HotlineLinks
               linkClassName="text-brand-yellow hover:text-white"
-              separator=" | "
+              separator="bar"
             />
           </p>
         </div>
 
         <div>
-          <h3 className="mb-4 font-semibold text-brand-yellow">Dịch vụ</h3>
+          <h3 className="mb-4 font-semibold text-brand-yellow">{t('labels.services')}</h3>
           <ul className="space-y-2 text-sm">
-            {siteProfile.services.map((service) => (
-              <li key={service.slug}>
+            {SERVICE_SLUGS.map((slug) => (
+              <li key={slug}>
                 <Link
-                  href={paths.serviceDetail(service.slug)}
+                  href={paths.serviceDetail(slug)}
                   className="hover:text-white"
                 >
-                  {service.title}
+                  {ts(`services.${slug}.title`)}
                 </Link>
               </li>
             ))}
@@ -42,33 +45,33 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h3 className="mb-4 font-semibold text-brand-yellow">Liên kết</h3>
+          <h3 className="mb-4 font-semibold text-brand-yellow">{t('labels.links')}</h3>
           <ul className="space-y-2 text-sm">
             <li>
               <Link href={paths.home} className="hover:text-white">
-                Trang chủ
+                {t('nav.home')}
               </Link>
             </li>
             <li>
               <Link href={paths.projects} className="hover:text-white">
-                Dự án hoàn thành
+                {t('nav.projects')}
               </Link>
             </li>
             <li>
               <Link href={paths.contact} className="hover:text-white">
-                Liên hệ
+                {t('nav.contact')}
               </Link>
             </li>
             <li>
               <a href={paths.pricing} className="hover:text-white">
-                Bảng giá
+                {t('nav.pricing')}
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 className="mb-4 font-semibold text-brand-yellow">Liên hệ</h3>
+          <h3 className="mb-4 font-semibold text-brand-yellow">{t('labels.contact')}</h3>
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />
@@ -80,25 +83,25 @@ export function SiteFooter() {
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />
               <a
-                href={`mailto:${siteProfile.contact.email}`}
+                href={`mailto:${siteConfig.contact.email}`}
                 className="hover:text-white"
               >
-                {siteProfile.contact.email}
+                {siteConfig.contact.email}
               </a>
             </li>
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-yellow" />
-              <span>{siteProfile.contact.address}</span>
+              <span>{ts('contact.address')}</span>
             </li>
           </ul>
           <p className="mt-4 text-xs text-blue-200">
-            MST: {siteProfile.contact.taxCode}
+            {t('labels.taxCode')}: {siteConfig.contact.taxCode}
           </p>
         </div>
       </div>
 
       <div className="border-t border-white/15 bg-[#152a6b] py-4 text-center text-sm text-blue-200">
-        © {year} {siteProfile.brand.name}. All rights reserved.
+        {t('footer.copyright', { year, brand: ts('brand.name') })}
       </div>
     </footer>
   );
