@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "services": "Dịch vụ",
+    "projects": "Hình ảnh thực tế",
+    "contact": "Liên hệ",
+    "pricing": "Bảng giá"
+  },
+  "hotlineBar": "Hotline 24/24:",
+  "cta": {
+    "quoteNow": "Báo giá ngay",
+    "callNow": "Gọi ngay",
+    "callQuote": "Gọi báo giá",
+    "pricing": "Bảng giá",
+    "zalo": "Chat Zalo"
+  },
+  "labels": {
+    "hotline": "Hotline",
+    "email": "Email",
+    "address": "Địa chỉ",
+    "services": "Dịch vụ",
+    "links": "Liên kết",
+    "contact": "Liên hệ",
+    "taxCode": "MST",
+    "serving": "Phục vụ",
+    "map": "Bản đồ",
+    "menu": "Menu"
+  },
+  "footer": {
+    "copyright": "© {year} {brand}. All rights reserved."
+  },
+  "hotlineSep": {
+    "or": " hoặc ",
+    "bar": " | "
+  },
+  "aria": {
+    "callHotline": "Gọi hotline",
+    "chatZalo": "Chat Zalo"
+  }
+}
