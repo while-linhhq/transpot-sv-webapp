@@ -1,54 +1,87 @@
 'use client';
 
-import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Menu, Phone, X } from 'lucide-react';
-import { siteProfile } from '@/config/site-profile';
+import { Link, usePathname } from '@/i18n/navigation';
+import { SERVICE_SLUGS, siteConfig } from '@/config/site-config';
 import { paths } from '@/router/paths';
 import { Button } from '@/components/ui/button';
 import { BrandLogo } from '@/components/usable/brand-logo';
 import { HotlineLinks } from '@/components/usable/hotline-links';
+import { LocaleSwitcher } from '@/components/usable/locale-switcher';
 import { cn } from '@/lib/utils';
 
-const navItems = [
-  { href: paths.home, label: 'Trang chủ' },
-  { href: paths.projects, label: 'Dự án hoàn thành' },
-  { href: paths.contact, label: 'Liên hệ' },
-];
-
 export function SiteHeader() {
+  const t = useTranslations('common');
+  const ts = useTranslations('site');
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  /** Chỉ trang chủ có hero full-screen tối — các URL khác nền sáng/vàng làm chữ menu trắng bị “mất” */
+  const isHomePage = pathname === '/' || pathname === '';
+  const useHeroOverlayNav = isAtTop && isHomePage;
+
+  useEffect(() => {
+    const updateHeaderState = () => {
+      setIsAtTop(window.scrollY <= 8);
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+    return () => window.removeEventListener('scroll', updateHeaderState);
+  }, []);
+
+  const navItems = [
+    { href: paths.home, label: t('nav.home') },
+    { href: paths.projects, label: t('nav.projects') },
+    { href: paths.contact, label: t('nav.contact') },
+  ];
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-brand-yellow/40 bg-surface/95 backdrop-blur-md">
-      <div className="bg-gradient-to-r from-primary via-primary to-[#1e3a8a] text-sm text-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2">
-          <span className="flex items-center gap-2">
-            <Phone className="h-4 w-4 text-brand-yellow" />
-            Hotline 24/24:{' '}
+    <header
+      className={cn(
+        'sticky top-0 z-50 transition-all duration-300',
+        useHeroOverlayNav
+          ? 'border-b border-white/10 bg-transparent backdrop-blur-[1px]'
+          : 'border-b-2 border-brand-yellow/40 bg-surface/95 backdrop-blur-md'
+      )}
+    >
+      <div className="bg-gradient-to-r from-primary via-primary to-[#1e3a8a] text-base font-semibold text-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2.5">
+          <span className="flex flex-wrap items-center gap-2">
+            <Phone className="h-5 w-5 shrink-0 text-brand-yellow" />
+            {t('hotlineBar')}{' '}
             <HotlineLinks
-              linkClassName="text-brand-yellow hover:text-white"
-              separator=" | "
+              linkClassName="text-base font-bold text-brand-yellow hover:text-white"
+              separator="bar"
             />
           </span>
-          <span className="hidden text-blue-100 sm:inline">
-            {siteProfile.brand.tagline}
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="hidden text-base text-blue-100/95 sm:inline">{ts('brand.tagline')}</span>
+            <LocaleSwitcher />
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5">
         <Link href={paths.home} className="flex shrink-0 items-center">
           <BrandLogo size="md" priority />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-2 lg:flex">
           <Link
             href={paths.home}
-            className="rounded-lg px-3 py-2 text-sm font-semibold text-foreground hover:bg-amber-50"
+            className={cn(
+              'rounded-lg px-4 py-2.5 text-base font-bold tracking-tight transition-colors',
+              useHeroOverlayNav
+                ? 'text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.65)] hover:bg-white/15'
+                : 'text-foreground hover:bg-amber-50'
+            )}
           >
-            Trang chủ
+            {t('nav.home')}
           </Link>
           <div
             className="relative"
@@ -57,19 +90,24 @@ export function SiteHeader() {
           >
             <button
               type="button"
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-foreground hover:bg-amber-50"
+              className={cn(
+                'rounded-lg px-4 py-2.5 text-base font-bold tracking-tight transition-colors',
+                useHeroOverlayNav
+                  ? 'text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.65)] hover:bg-white/15'
+                  : 'text-foreground hover:bg-amber-50'
+              )}
             >
-              Dịch vụ
+              {t('nav.services')}
             </button>
             {servicesOpen && (
-              <div className="absolute left-0 top-full z-50 min-w-[280px] rounded-xl border-2 border-brand-yellow/50 bg-surface p-2 shadow-xl">
-                {siteProfile.services.map((service) => (
+              <div className="absolute left-0 top-full z-50 min-w-[300px] rounded-xl border-2 border-brand-yellow/50 bg-surface p-2 shadow-xl">
+                {SERVICE_SLUGS.map((slug) => (
                   <Link
-                    key={service.slug}
-                    href={paths.serviceDetail(service.slug)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-amber-50 hover:text-primary"
+                    key={slug}
+                    href={paths.serviceDetail(slug)}
+                    className="block rounded-lg px-3 py-3 text-base font-semibold leading-snug hover:bg-amber-50 hover:text-primary"
                   >
-                    {service.title}
+                    {ts(`services.${slug}.title`)}
                   </Link>
                 ))}
               </div>
@@ -79,7 +117,12 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-foreground hover:bg-amber-50"
+              className={cn(
+                'rounded-lg px-4 py-2.5 text-base font-bold tracking-tight transition-colors',
+                useHeroOverlayNav
+                  ? 'text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.65)] hover:bg-white/15'
+                  : 'text-foreground hover:bg-amber-50'
+              )}
             >
               {item.label}
             </Link>
@@ -87,18 +130,23 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <a href={siteProfile.contact.hotlineHref}>
-            <Button variant="accent">Báo giá ngay</Button>
+          <a href={siteConfig.contact.hotlines[0].href}>
+            <Button variant="accent" size="lg">
+              {t('cta.quoteNow')}
+            </Button>
           </a>
         </div>
 
         <button
           type="button"
-          className="rounded-lg p-2 text-primary lg:hidden"
+          className={cn(
+            'rounded-lg p-2.5 lg:hidden',
+            useHeroOverlayNav ? 'text-white [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.6))]' : 'text-primary'
+          )}
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Menu"
+          aria-label={t('labels.menu')}
         >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
         </button>
       </div>
 
@@ -113,26 +161,28 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-2 font-semibold hover:bg-amber-50"
+              className="rounded-lg px-3 py-3 text-lg font-bold tracking-tight hover:bg-amber-50"
               onClick={() => setMobileOpen(false)}
             >
               {item.label}
             </Link>
           ))}
-          <p className="px-3 pt-2 text-xs font-bold uppercase text-muted">Dịch vụ</p>
-          {siteProfile.services.map((service) => (
+          <p className="px-3 pb-1 pt-3 text-sm font-extrabold uppercase tracking-wide text-muted">
+            {t('nav.services')}
+          </p>
+          {SERVICE_SLUGS.map((slug) => (
             <Link
-              key={service.slug}
-              href={paths.serviceDetail(service.slug)}
-              className="rounded-lg px-3 py-2 text-sm hover:bg-amber-50"
+              key={slug}
+              href={paths.serviceDetail(slug)}
+              className="rounded-lg px-3 py-2.5 text-base font-semibold leading-snug hover:bg-amber-50"
               onClick={() => setMobileOpen(false)}
             >
-              {service.title}
+              {ts(`services.${slug}.title`)}
             </Link>
           ))}
-          <a href={siteProfile.contact.hotlineHref} className="mt-2 block">
-            <Button variant="accent" className="w-full">
-              Báo giá ngay
+          <a href={siteConfig.contact.hotlines[0].href} className="mt-2 block">
+            <Button variant="accent" className="w-full" size="lg">
+              {t('cta.quoteNow')}
             </Button>
           </a>
         </nav>
