@@ -5,7 +5,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager - Head Script */}
+        {/* Google Tag Manager - Data Layer Initialization */}
+        <Script
+          id="gtm-data-layer"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            `,
+          }}
+        />
+
+        {/* Google Tag Manager - Main Script */}
         <Script
           id="gtm-script"
           strategy="afterInteractive"
