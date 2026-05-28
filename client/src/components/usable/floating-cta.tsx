@@ -20,7 +20,7 @@ export function FloatingCta() {
       </a>
       <a
         href={siteConfig.contact.hotlines[0].href}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:h-14 sm:w-14"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-transform hover:scale-105 active:scale-95 animate-shake animate-pulse-ring sm:h-14 sm:w-14"
         aria-label={t('aria.callHotline')}
       >
         <Phone className="h-6 w-6" />
