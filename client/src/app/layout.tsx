@@ -30,6 +30,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PQ7KZNR5');`,
           }}
         />
+
+        {/* Google Ads Conversion Tracking (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18326797356"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-ads-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18326797356');
+            `,
+          }}
+        />
       </head>
       <body>
         {/* Google Tag Manager - noscript (No JavaScript fallback) */}
